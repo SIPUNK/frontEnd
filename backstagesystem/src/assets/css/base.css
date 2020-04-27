@@ -1,0 +1,97 @@
+body{
+	background-color: #F5F5F5;
+}
+/* 顶栏样式 */
+#topNav a{
+	color: rgb(255, 255, 255);
+}
+#topNav nav{
+	margin-bottom: 0px; background-color: rgb(56, 162, 138);
+}
+#topNav #skip{
+	position: relative;
+	top: 15px;
+	margin-right: 20px;
+}
+
+/* 侧边栏样式 */
+#sideBar .col-sm-2{
+	padding-left: 0px;
+	padding-right: 0px;
+	border-color: rgb(74, 82, 89); 
+	border-bottom-width: 500px;
+	border-bottom-style: solid;
+}
+#sideBar ul{
+	background-color: rgb(74, 82, 89);
+}
+#sideBar a{
+	color: rgb(255, 255, 255);
+}
+
+/* 列表组件样式 */
+.newsDiv{
+	background-color: white;
+	margin-top: 50px;
+}
+.myspan{
+	font-size: large;
+	font-weight: 1000;
+}
+.mybutton{
+	float: right;
+	margin-right: 20px;
+	position: relative;
+	top: -5px;
+}
+.line{
+    background-color:#E6E3E3;
+    height:1px;     
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+table{
+	text-align: center;
+}
+table th{
+	text-align: center;
+}
+#checkAll{
+	margin-left: 20px;
+	margin-bottom: 20px;
+}
+.divFooter ul{
+	float: right;
+	margin-top: -45px;
+	margin-right: 20px;
+}
+.myPageDiv{
+	float: left;
+	position: relative;
+	top:-20px;
+}
+
+/* 登录页面样式 */
+#login .col-sm-8{
+	position: absolute;
+	top: 150px;
+}
+#login form{
+	margin-top: 30px;
+}
+#login h2{
+	text-align: center;
+}
+#login .form-group{
+	position: relative;
+	width: 30%;
+	left: 35%;
+}
+#login #loginButton{
+	position: relative;
+	width: 30%;
+	left: 35%;
+	margin-top: 20px;
+}
+
+
