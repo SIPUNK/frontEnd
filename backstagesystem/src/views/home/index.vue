@@ -5,6 +5,9 @@
 <script>
 	export default{
 		name:'homeIndex',
+		created() {
+			document.title = '首页管理'
+		},
 		methods:{
 			
 		}
