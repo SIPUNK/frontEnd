@@ -39,66 +39,23 @@
 		<div id="divFooter" class="divFooter">
 			<input type="checkbox" id="checkAll" class="checkAll" @click="checkedAll()">  全选
 			<a>    批量删除</a>
-			{{ Page.currentPage }}
-			{{ Page.pageNum }}
-			{{ Page.currentIndex }}
-			<nav aria-label="Page navigation">
-			  <ul class="pagination">
-				<li>
-				  <a>
-				     <span class="total">共{{ Page.pageNum }}页</span>
-				  </a>
-				</li>
-				<li>
-				  <a>
-				     <span>当前在第{{ Page.currentPage }}页</span>
-				  </a>
-				</li>
-			    <li @click="first">
-			      <a  aria-label="Previous">
-			        <span aria-hidden="true">首页</span>
-			      </a>
-			    </li>
-				<li @click="pre">
-				  <a>
-				    <span aria-hidden="true">上一页</span>
-				  </a>
-				</li>
-				<li v-show="Page.showFirstIndex != 1">
-				  <a>
-				    <span aria-hidden="true">..</span>
-				  </a>
-				</li>
-				<div class="pagination myPageDiv" v-for="index in Page.pageShow">
-				  <li @click="goto(Page.showFirstIndex-1+index)"><a>{{ Page.showFirstIndex-1+index }}</a></li>
-				</div>
-				<li v-show="Page.currentPage-1+Page.pageShow<Page.pageNum">
-				  <a>
-				    <span aria-hidden="true">..</span>
-				  </a>
-				</li>
-				<li @click="next">
-				  <a>
-				    <span aria-hidden="true">下一页</span>
-				  </a>
-				</li>
-			    <li @click="last">
-			      <a aria-label="Next">
-			        <span aria-hidden="true">尾页</span>
-			      </a>
-			    </li>
-			  </ul>
-			</nav>
+			<page :Page="Page" v-on:first="first" v-on:last="last" v-on:pre="pre" v-on:next="next" v-on:goto="goto"></page>
 		</div>
+		
 	</div>
 </template>
 
 <script>
 	
+	import page from "../../common/Page.vue"
+	
 	export default{
 		name:'brochures',
-		
+		components:{
+			page
+		},
 		created() {
+			document.title = "资讯首页";
 			for(let i=0;i<this.Page.pageSize;i++)
 			{
 				this.dataCurrent.push(this.dataTotal[i]);
@@ -112,7 +69,6 @@
 		methods:{
 			//单选事件
 			checkedOne (index) {
-				//console.log(index)
 				let idIndex = this.checkList.indexOf(index)
 				if (idIndex >= 0) {
 				  // 如果已经包含了该项,则删去
@@ -137,104 +93,62 @@
 			    }  
 			},
 			//首页
-			first(){
-				if(this.Page.currentPage != 1)
+			first(page){
+				this.Page = page;
+				this.dataCurrent = [];
+				for(let i=this.Page.currentIndex;i<this.Page.pageSize;i++)
 				{
-					this.dataCurrent = [];
-					this.Page.currentPage = 1;
-					this.Page.currentIndex = 0;
-					this.Page.showFirstIndex = 1;
-					for(let i=this.Page.currentIndex;i<this.Page.pageSize;i++)
-					{
-						this.dataCurrent.push(this.dataTotal[i]);
-					}
-				}
+					this.dataCurrent.push(this.dataTotal[i]);
+				}	
 			},
 			//尾页
-			last(){
-				if(this.Page.currentPage != this.Page.pageNum)
+			last(page){
+				this.Page = page;
+				this.dataCurrent = [];
+				let index = this.Page.currentIndex;
+				for(let i=0;i<this.Page.pageSize;i++)
 				{
-					this.dataCurrent = [];
-					this.Page.currentPage = this.Page.pageNum;
-					this.Page.currentIndex = this.Page.pageSize * (this.Page.pageNum - 1);
-					this.Page.showFirstIndex = this.Page.pageNum - this.Page.pageShow + 1;
-					let index = this.Page.currentIndex;
-					for(let i=0;i<this.Page.pageSize;i++)
-					{
-						if(index < this.dataTotal.length)
-						{
-							this.dataCurrent.push(this.dataTotal[index++]);
-						}
-					}
-				}
-			},
-			//上一页
-			pre (){
-				if(this.Page.currentPage != 1)
-				{
-					this.dataCurrent = [];
-					this.Page.currentPage -= 1;
-					this.Page.currentIndex -= this.Page.pageSize;
-					if(this.Page.currentPage < this.Page.pageNum - this.Page.pageShow + 1)
-					{
-						this.Page.showFirstIndex = this.Page.currentPage;
-					}
-					let index = this.Page.currentIndex;
-					for(let i=0;i<this.Page.pageSize;i++)
+					if(index < this.dataTotal.length)
 					{
 						this.dataCurrent.push(this.dataTotal[index++]);
 					}
-				}
+				}	
+			},
+			//上一页
+			pre(page){
+				this.Page = page;
+				this.dataCurrent = [];
+				let index = this.Page.currentIndex;
+				for(let i=0;i<this.Page.pageSize;i++)
+				{
+					this.dataCurrent.push(this.dataTotal[index++]);
+				}	
 			},
 			//下一页
-			next(){
-				if(this.Page.currentPage != this.Page.pageNum)
+			next(page){
+				this.Page = page;
+				this.dataCurrent = [];
+				let index = this.Page.currentIndex;
+				for(let i=0;i<this.Page.pageSize;i++)
 				{
-					this.dataCurrent = [];
-					this.Page.currentPage += 1;
-					this.Page.currentIndex += this.Page.pageSize;
-					if(this.Page.currentPage >= this.Page.pageNum - this.Page.pageShow + 1)
+					if(index < this.dataTotal.length)
 					{
-						this.Page.showFirstIndex = this.Page.pageNum - this.Page.pageShow + 1;
+						this.dataCurrent.push(this.dataTotal[index++]);
 					}
-					else
-					{
-						this.Page.showFirstIndex += 1;
-					}
-					let index = this.Page.currentIndex;
-					for(let i=0;i<this.Page.pageSize;i++)
-					{
-						if(index < this.dataTotal.length)
-						{
-							this.dataCurrent.push(this.dataTotal[index++]);
-						}
-					}
-				}
+				}	
 			},
 			//跳转指定页
 			goto(page){
-				if(this.Page.currentPage != this.Page.pageSize * (page - 1))
+				this.Page = page;
+				this.dataCurrent = [];
+				let index = this.Page.currentIndex;
+				for(let i=0;i<this.Page.pageSize;i++)
 				{
-					this.dataCurrent = [];
-					this.Page.currentPage = page;
-					this.Page.currentIndex = this.Page.pageSize * (page - 1);
-					if(this.Page.currentPage < this.Page.pageNum - this.Page.pageShow + 1)
+					if(index < this.dataTotal.length)
 					{
-						this.Page.showFirstIndex = this.Page.currentPage;
+						this.dataCurrent.push(this.dataTotal[index++]);
 					}
-					else
-					{
-						this.Page.showFirstIndex = this.Page.pageNum - this.Page.pageShow + 1;
-					}
-					let index = this.Page.currentIndex;
-					for(let i=0;i<this.Page.pageSize;i++)
-					{
-						if(index < this.dataTotal.length)
-						{
-							this.dataCurrent.push(this.dataTotal[index++]);
-						}
-					}
-				}
+				}	
 			}
 		},
 		data:function(){
