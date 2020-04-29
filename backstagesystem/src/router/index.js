@@ -6,6 +6,7 @@ import Login from '../views/login/login'
 import HomeIndex from '../views/home/index'
 
 import NewsIndex from '../views/news/Index/index'
+import Newsadd from '../views/news/Index/newsAdd.vue'
 import NewsCollege from '../views/news/College/collegeNews'
 import NewsCarousel from '../views/news/Carousel/carousel'
 
@@ -35,6 +36,10 @@ const routes = [
 	{
 		path: '/news/index',
 		component: NewsIndex
+	},
+	{
+		path: '/news/index/add',
+		component: Newsadd
 	},
 	{
 		path: '/news/college',

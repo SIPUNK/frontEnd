@@ -7,7 +7,10 @@ import "bootstrap"
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
 import "./assets/css/base.css"
+//导入富文本编辑器
+import Vue2Editor from "vue2-editor";
 
+Vue.use(Vue2Editor);
 Vue.config.productionTip = false
 
 new Vue({

@@ -5,7 +5,7 @@
 				<br>&nbsp;&nbsp;&nbsp;&nbsp;
 				招生简章
 			</span>
-			<button class="btn btn-success mybutton">
+			<button class="btn btn-success mybutton" @click="add">
 				添加文章
 			</button>
 			<div class="line">	
@@ -51,8 +51,68 @@
 	
 	export default{
 		name:'brochures',
-		components:{
-			page
+		data:function(){
+			return{
+				dataCurrent:[],
+				dataTotal:[
+					{
+						name:"简章1",
+						date:"1月"
+					},
+					{
+						name:"简章2",
+						date:"1月"
+					},
+					{
+						name:"简章3",
+						date:"1月"
+					},
+					{
+						name:"简章4",
+						date:"2月"
+					},
+					{
+						name:"简章5",
+						date:"2月"
+					},
+					{
+						name:"简章6",
+						date:"2月"
+					},
+					{
+						name:"简章7",
+						date:"2月"
+					},
+					{
+						name:"简章8",
+						date:"2月"
+					},
+					{
+						name:"简章9",
+						date:"2月"
+					},
+					{
+						name:"简章10",
+						date:"2月"
+					}
+				],
+				checkList:[],
+				isCheckedAll: false,
+				Page:{
+					//每页显示几条数据
+					pageSize:2,
+					//显示几页
+					pageShow:3,
+					//显示的第一页的下标
+					showFirstIndex:1,
+					//共几页
+					pageNum:0,
+					//当前显示第几页(默认第一页)
+					currentPage:1,
+					//当前第一个数据的下标(默认为0)
+					currentIndex:0
+				}
+			}
 		},
 		created() {
 			document.title = "资讯首页";
@@ -149,70 +209,13 @@
 						this.dataCurrent.push(this.dataTotal[index++]);
 					}
 				}	
+			},
+			add(){
+				this.$router.push("/news/index/add");
 			}
 		},
-		data:function(){
-			return{
-				dataCurrent:[],
-				dataTotal:[
-					{
-						name:"简章1",
-						date:"1月"
-					},
-					{
-						name:"简章2",
-						date:"1月"
-					},
-					{
-						name:"简章3",
-						date:"1月"
-					},
-					{
-						name:"简章4",
-						date:"2月"
-					},
-					{
-						name:"简章5",
-						date:"2月"
-					},
-					{
-						name:"简章6",
-						date:"2月"
-					},
-					{
-						name:"简章7",
-						date:"2月"
-					},
-					{
-						name:"简章8",
-						date:"2月"
-					},
-					{
-						name:"简章9",
-						date:"2月"
-					},
-					{
-						name:"简章10",
-						date:"2月"
-					}
-				],
-				checkList:[],
-				isCheckedAll: false,
-				Page:{
-					//每页显示几条数据
-					pageSize:2,
-					//显示几页
-					pageShow:3,
-					//显示的第一页的下标
-					showFirstIndex:1,
-					//共几页
-					pageNum:0,
-					//当前显示第几页(默认第一页)
-					currentPage:1,
-					//当前第一个数据的下标(默认为0)
-					currentIndex:0
-				}
-			}
+		components:{
+			page
 		}
 	}
 </script>

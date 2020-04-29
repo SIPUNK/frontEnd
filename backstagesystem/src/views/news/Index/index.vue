@@ -2,14 +2,7 @@
 	<div id="newsIndex" class="container">
 		<div class="col-sm-10 col-sm-offset-1">
 			<h4>资讯</h4>
-			<div id="news1" class="newsDiv">
-				资讯筛选
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-			</div>
+			<newsfind></newsfind>
 			<brochures></brochures>
 			<div id="news2" class="newsDiv">
 				复试分数线
@@ -33,7 +26,8 @@
 
 <script>
 	
-	import brochures from "../../../components/content/news/brochures.vue"
+	import newsfind from "../../../components/content/news/Find.vue"
+	import brochures from "../../../components/content/news/Brochures.vue"
 	
 	export default{
 		name:'newsIndex',
@@ -48,6 +42,7 @@
 			}
 		},
 		components:{
+			newsfind,
 			brochures
 		}
 	}

@@ -1,18 +1,21 @@
 <template>
-	<h2>首页</h2>
+	<div>
+		<preview-img></preview-img>
+	</div>
+	
+	
 </template>
 
 <script>
+	import PreviewImg from "../../components/common/PreviewImg.vue"
 	export default{
 		name:'homeIndex',
-		created() {
-			document.title = '首页管理'
-		},
-		methods:{
-			
+		components:{
+			PreviewImg
 		}
 	}
 </script>
 
 <style>
+
 </style>
