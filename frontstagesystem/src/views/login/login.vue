@@ -72,7 +72,7 @@
 	import {
 		setCookie,
 		getCookie
-	} from '../../assets/js/cookie.js'
+	} from 'assets/js/cookie.js'
 
 	export default {
 		data() {
