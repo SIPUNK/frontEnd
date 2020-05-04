@@ -32,8 +32,10 @@
 					</li>
 					
 	    </ul>
-			<div class="to_right"></div>
+			<!-- <div class="to_right"></div> -->
+			<i class="el-icon-arrow-right"></i>
 	</div>
+	
 </template>
 
 
@@ -79,7 +81,7 @@
 	.container {
 		margin-top: 50px;
 		background-color: #73cbe1;
-		width: 1503.200px;
+		width: 100%;
 		    height: 180px;
 		    left: 0px;
 		    top: 819px;
@@ -95,9 +97,10 @@
 		    font-weight: normal;
 		    font-style: normal;
 		    opacity: 1;
+				
 	}
 	
-	.to_right {
+	/* .to_right {
 	    width: 0;
 	    height: 0;
 	    border-left: 20px solid rgba(115, 203, 255, 1.0);
@@ -107,5 +110,12 @@
 			position: relative;
 			top: -21px;
 			right: -53px;
+	} */
+	.el-icon-arrow-right {
+		display: inline-block;
+		position: relative;
+		top: -14.5px;
+		right: -55px;
+		font-size: 30px;
 	}
 </style>

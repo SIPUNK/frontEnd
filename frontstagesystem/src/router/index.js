@@ -6,6 +6,7 @@ import Home from '@/views/home/home.vue'
 import Community from '@/views/community/community.vue'
 import News from '@/views/news/news.vue'
 import User from '@/views/user/user.vue'
+import newsDetail from '@/views/news/newsDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ const routes = [
 		name: 'User',
 		component: User
 	},
+	{
+		path: '/news/detail',
+		name: 'newsDetail',
+		component: newsDetail
+	}
 ]
 
 const router = new VueRouter({
