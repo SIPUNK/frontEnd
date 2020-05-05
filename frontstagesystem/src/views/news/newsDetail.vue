@@ -1,6 +1,8 @@
 <template>
 	<div>
 		<detailTitle></detailTitle>
+		<detailFile></detailFile>
+		<detailGrade></detailGrade>
 	</div>
 </template>
 
