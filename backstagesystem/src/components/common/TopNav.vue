@@ -8,7 +8,7 @@
 		  <div id="user" class="nav navbar-nav navbar-right">
 			   <a class="navbar-brand">{{ $store.state.nickname }}</a>
 			   <a class="navbar-brand">  你好 !</a>
-			   <a id="skip" href="#" @click="skip">
+			   <a id="skip" @click="quit">
 				  退出登录
 			   </a>
 		  </div>
@@ -18,11 +18,17 @@
 </template>
 
 <script>
+	
+	import {delCookie} from '../../assets/js/cookie.js'
+	
 	export default{
 		name:'TopNav',
 		methods:{
-			skip:function(){
-				alert("退出登录!")
+			quit:function(){
+				/*删除cookie*/
+				this.$store.commit('logout');
+				delCookie('username');
+				this.$router.push("/login");
 			}
 		}
 	}

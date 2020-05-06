@@ -1,12 +1,12 @@
 <template>
-	<div id="news2" class="newsDiv">
+	<div id="admin" class="newsDiv">
 		<div id="divHeader">
 			<span class="myspan">
 				<br>&nbsp;&nbsp;&nbsp;&nbsp;
-				招生简章
+				管理员列表
 			</span>
 			<button class="btn btn-success mybutton" @click="add">
-				添加文章
+				添加管理员
 			</button>
 			<div class="line">	
 			</div>
@@ -46,7 +46,6 @@
 </template>
 
 <script>
-	
 	import page from "../../common/Page.vue"
 	
 	export default{
@@ -55,46 +54,6 @@
 			return{
 				dataCurrent:[],
 				dataTotal:[
-					{
-						name:"简章1",
-						date:"1月"
-					},
-					{
-						name:"简章2",
-						date:"1月"
-					},
-					{
-						name:"简章3",
-						date:"1月"
-					},
-					{
-						name:"简章4",
-						date:"2月"
-					},
-					{
-						name:"简章5",
-						date:"2月"
-					},
-					{
-						name:"简章6",
-						date:"2月"
-					},
-					{
-						name:"简章7",
-						date:"2月"
-					},
-					{
-						name:"简章8",
-						date:"2月"
-					},
-					{
-						name:"简章9",
-						date:"2月"
-					},
-					{
-						name:"简章10",
-						date:"2月"
-					}
 				],
 				checkList:[],
 				isCheckedAll: false,
@@ -115,7 +74,6 @@
 			}
 		},
 		created() {
-			document.title = "资讯首页";
 			for(let i=0;i<this.Page.pageSize;i++)
 			{
 				this.dataCurrent.push(this.dataTotal[i]);
@@ -211,7 +169,7 @@
 				}	
 			},
 			add(){
-				this.$router.push("/news/index/add");
+				this.$router.push("/admin/add");
 			}
 		},
 		components:{

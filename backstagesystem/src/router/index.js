@@ -12,6 +12,7 @@ import NewsCarousel from '../views/news/Carousel/carousel'
 
 import Users from '../views/users/user'
 import Admin from '../views/users/admin'
+import AdminAdd from '../views/users/adminAdd.vue'
 
 import CommunityIndex from '../views/community/index'
 import CommunityDetail from '../views/community/detail'
@@ -20,10 +21,12 @@ import Settings from '../views/settings/settings'
 
 Vue.use(VueRouter)
 
+ 
+
 const routes = [
 	{
 		path: '',
-		redirect: '/home'
+		redirect: '/login'
 	},
 	{
 		path: '/login',
@@ -58,6 +61,10 @@ const routes = [
 		component: Admin
 	},
 	{
+		path: '/admin/add',
+		component: AdminAdd
+	},
+	{
 		path: '/community/index',
 		component: CommunityIndex
 	},
@@ -74,6 +81,7 @@ const routes = [
 const router = new VueRouter({
 	routes
 })
+
 
 //3.导出router
 export default router

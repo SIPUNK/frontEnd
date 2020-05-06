@@ -3,47 +3,47 @@
 		<nav aria-label="Page navigation">
 		  <ul class="pagination">
 			<li>
-			  <a>
+			  <button>
 			     <span class="total">共{{ page.pageNum }}页</span>
-			  </a>
+			  </button>
 			</li>
 			<li>
-			  <a>
+			  <button>
 			     <span>当前在第{{ page.currentPage }}页</span>
-			  </a>
+			  </button>
 			</li>
 		    <li @click="first">
-		      <a  aria-label="Previous">
+		      <button  aria-label="Previous">
 		        <span aria-hidden="true">首页</span>
-		      </a>
+		      </button>
 		    </li>
 			<li @click="pre">
-			  <a>
+			  <button>
 			    <span aria-hidden="true">上一页</span>
-			  </a>
+			  </button>
 			</li>
 			<li v-show="page.showFirstIndex != 1">
-			  <a>
-			    <span aria-hidden="true">..</span>
-			  </a>
+			    <button><span aria-hidden="true">..</span></button>
 			</li>
 			<div class="pagination myPageDiv" v-for="index in page.pageShow">
-			  <li @click="goto(page.showFirstIndex-1+index)"><a>{{ page.showFirstIndex-1+index }}</a></li>
+			  <li @click="goto(page.showFirstIndex-1+index)">
+				<button>{{ page.showFirstIndex-1+index }}</button>
+			  </li>
 			</div>
 			<li v-show="page.currentPage-1+page.pageShow<page.pageNum">
-			  <a>
+			  <button>
 			    <span aria-hidden="true">..</span>
-			  </a>
+			  </button>
 			</li>
 			<li @click="next">
-			  <a>
+			  <button>
 			    <span aria-hidden="true">下一页</span>
-			  </a>
+			  </button>
 			</li>
 		    <li @click="last">
-		      <a aria-label="Next">
+		      <button aria-label="Next">
 		        <span aria-hidden="true">尾页</span>
-		      </a>
+		      </button>
 		    </li>
 		  </ul>
 		</nav>

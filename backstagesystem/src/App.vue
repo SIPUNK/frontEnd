@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-	<div v-show="true">
+	<div v-show="$store.state.isLogin">
 		<top-nav></top-nav>
 		<side-bar></side-bar>
 	</div>

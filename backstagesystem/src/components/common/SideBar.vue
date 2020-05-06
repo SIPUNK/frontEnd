@@ -2,12 +2,12 @@
 	<div id="sideBar">
 	  <div class="col-sm-2">
 	  	<ul class="nav nav-pills nav-stacked" v-for="(item,index) in first">
-	  	  <li role="presentation">
-	  	    <a @click="itemClick(index)">
-	  	      <span :class="item.img" aria-hidden="true"></span>
-	  	      <span>		{{ item.name }}</span>  	  				
-	  	    </a>
-	  	  </li>		    
+		  <li role="presentation" @click="itemClick(index)">
+			<button id="siedBar_btn" class="btn btn-success btn-lg sideBar_btn">
+			    <span :class="item.img" aria-hidden="true"></span>
+			    <span>		{{ item.name }}</span>  	  				
+			</button>
+		  </li>	  	
 	  	</ul>
 	  </div>
 	</div>
@@ -97,6 +97,7 @@
 
 <style>
 	.left{
-		padding-left: 18px;
+		padding-left: 23px;
 	}
+	
 </style>

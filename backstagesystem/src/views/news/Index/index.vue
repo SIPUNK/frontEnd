@@ -28,11 +28,20 @@
 	
 	import newsfind from "../../../components/content/news/Find.vue"
 	import brochures from "../../../components/content/news/Brochures.vue"
+	import {getCookie} from '../../../assets/js/cookie.js'
 	
 	export default{
 		name:'newsIndex',
 		created() {
 			
+		},
+		mounted(){
+		    /*页面挂载获取保存的cookie值*/
+		    let uname = getCookie('username')
+		    /*如果cookie不存在，则跳转到登录页*/
+		    if(uname == ""){
+		        this.$router.push('/login')
+		    }        
 		},
 		methods:{
 			

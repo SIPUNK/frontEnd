@@ -30,7 +30,7 @@
 		name:"newsAdd",
 		methods:{
 			returnTo (){
-				this.$router.push("/news/index");
+				this.$router.go(-1);
 			}
 		},
 		components:{

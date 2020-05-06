@@ -2,7 +2,16 @@ body{
 	background-color: #F5F5F5;
 }
 
+
 .btn{
+	background-color: rgb(56, 162, 138);
+}
+.sideBar_btn{
+	background-color: rgb(74, 82, 89);
+	width: 100%;border-width: 0;
+	text-align: left;
+}
+.sideBar_btn:hover{
 	background-color: rgb(56, 162, 138);
 }
 
@@ -35,6 +44,7 @@ body{
 }
 
 
+
 /* 列表组件样式 */
 .newsDiv{
 	background-color: white;
@@ -58,9 +68,17 @@ body{
 }
 table{
 	text-align: center;
+	table-layout:fixed;
 }
 table th{
 	text-align: center;
+}
+table td{
+	width:100%;
+	word-break:keep-all;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
 }
 #checkAll{
 	margin-left: 20px;
@@ -68,13 +86,42 @@ table th{
 }
 .divFooter ul{
 	float: right;
-	margin-top: -45px;
+	margin-top: -65px;
 	margin-right: 20px;
 }
+/*
 .myPageDiv{
 	float: left;
 	position: relative;
 	top:-20px;
+}
+*/
+/*分页组件样式*/
+.page button{
+	display: inline-block;
+	margin-bottom: 0;
+	font-weight: normal;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	touch-action: manipulation;
+	cursor: pointer;
+	background-image: none;
+	background-color: white;
+	border: 1px solid transparent;
+	border-color: #eee;
+	padding: 6px 12px;
+	color: #23527c;
+	font-size: 14px;
+	line-height: 1.42857143;
+	border-radius: 4px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.page button:hover{
+	background-color: #EEEEEE;
 }
 
 /*查找组件样式*/
@@ -137,11 +184,11 @@ table th{
 	width: 40%;
 	margin-top: 30px;
 	margin-bottom: 30px;
+	text-align: right;
 }
 .submit_button{
 	margin-left: 90px;
 }
-
 /*
 table {
  border: 1px solid #EBEEF5;

@@ -1,12 +1,12 @@
 <template>
-	<div id="news2" class="newsDiv">
+	<div id="admin" class="newsDiv">
 		<div id="divHeader">
 			<span class="myspan">
 				<br>&nbsp;&nbsp;&nbsp;&nbsp;
-				招生简章
+				用户列表
 			</span>
 			<button class="btn btn-success mybutton" @click="add">
-				添加文章
+				添加用户
 			</button>
 			<div class="line">	
 			</div>
@@ -16,16 +16,31 @@
 				<thead>
 					<tr>
 					  <th>选择</th>
-					  <th>简章名称</th>
-					  <th>修改时间</th>
-					  <th>操作</th>					
+					  <th>用户ID</th>
+					  <th>用户名</th>
+					  <th>昵称</th>
+					  <th>密码</th>
+					  <th>电话号码</th>
+					  <th>性别</th>
+					  <th>账号状态</th>
+					  <th>发帖数</th>
+					  <th>评论数</th>
+					  <th>关注</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr v-for="(item,index) in dataCurrent">
 					  <td><input v-bind:checked="isCheckedAll" type="checkbox" name="checkItem" @click="checkedOne(index)"/></td>
-					  <td>{{ item.name }}</td>
-					  <td>{{ item.date }}</td>
+					  <td>{{ item.user_id }}</td>
+					  <td>{{ item.username }}</td>
+					  <td>{{ item.nickname }}</td>
+					  <td>{{ item.password }}</td>
+					  <td>{{ item.phone }}</td>
+					  <td>{{ item.sex }}</td>
+					  <td>{{ item.isBan }}</td>
+					  <td>{{ item.invitation_number }}</td>
+					  <td>{{ item.comment_number }}</td>
+					  <td>{{ item.follow }}</td>
 					  <td>
 					  	<a>编辑  </a>
 					  	<a>删除</a>
@@ -46,63 +61,21 @@
 </template>
 
 <script>
-	
 	import page from "../../common/Page.vue"
 	
 	export default{
-		name:'brochures',
+		name:'userList',
 		data:function(){
 			return{
 				dataCurrent:[],
-				dataTotal:[
-					{
-						name:"简章1",
-						date:"1月"
-					},
-					{
-						name:"简章2",
-						date:"1月"
-					},
-					{
-						name:"简章3",
-						date:"1月"
-					},
-					{
-						name:"简章4",
-						date:"2月"
-					},
-					{
-						name:"简章5",
-						date:"2月"
-					},
-					{
-						name:"简章6",
-						date:"2月"
-					},
-					{
-						name:"简章7",
-						date:"2月"
-					},
-					{
-						name:"简章8",
-						date:"2月"
-					},
-					{
-						name:"简章9",
-						date:"2月"
-					},
-					{
-						name:"简章10",
-						date:"2月"
-					}
-				],
+				dataTotal:[],
 				checkList:[],
 				isCheckedAll: false,
 				Page:{
 					//每页显示几条数据
-					pageSize:2,
+					pageSize:5,
 					//显示几页
-					pageShow:3,
+					pageShow:5,
 					//显示的第一页的下标
 					showFirstIndex:1,
 					//共几页
@@ -114,8 +87,10 @@
 				}
 			}
 		},
-		created() {
-			document.title = "资讯首页";
+		mounted() {
+			this.$http.get('http://118.178.184.69:4396/User/findall').then((res)=>{
+				this.dataTotal = res.body;
+			})
 			for(let i=0;i<this.Page.pageSize;i++)
 			{
 				this.dataCurrent.push(this.dataTotal[i]);
@@ -125,6 +100,7 @@
 			{
 				this.Page.pageNum++;
 			}
+			//console.log('log')
 		},
 		methods:{
 			//单选事件
@@ -211,7 +187,7 @@
 				}	
 			},
 			add(){
-				this.$router.push("/news/index/add");
+				this.$router.push("/user/add");
 			}
 		},
 		components:{
