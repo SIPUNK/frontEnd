@@ -36,13 +36,13 @@
 					  <td>{{ item.nickname }}</td>
 					  <td>{{ item.password }}</td>
 					  <td>{{ item.phone }}</td>
-					  <td>{{ item.sex }}</td>
+					  <td>{{ getSex(item.sex) }}</td>
 					  <td>{{ item.isBan }}</td>
 					  <td>{{ item.invitation_number }}</td>
 					  <td>{{ item.comment_number }}</td>
 					  <td>{{ item.follow }}</td>
 					  <td>
-					  	<a>编辑  </a>
+					  	<a @click="edit(item.user_id)">编辑  </a>
 					  	<a>删除</a>
 					  </td>
 					</tr>
@@ -62,6 +62,7 @@
 
 <script>
 	import page from "../../common/Page.vue"
+	import { getUserdata } from "../../../network/user.js"
 	
 	export default{
 		name:'userList',
@@ -87,22 +88,41 @@
 				}
 			}
 		},
+		created(){
+			
+		},
 		mounted() {
-			this.$http.get('http://118.178.184.69:4396/User/findall').then((res)=>{
-				this.dataTotal = res.body;
-			})
-			for(let i=0;i<this.Page.pageSize;i++)
-			{
-				this.dataCurrent.push(this.dataTotal[i]);
-			}
-			this.Page.pageNum = Math.floor(this.dataTotal.length / this.Page.pageSize);
-			if((this.dataTotal.length % this.Page.pageSize) != 0)
-			{
-				this.Page.pageNum++;
-			}
-			//console.log('log')
+			this.getAll();
 		},
 		methods:{
+			//编辑用户
+			edit(id){
+				this.$router.push('/users/edit/'+id);
+			},
+			//获取用户性别
+			getSex(sex){
+				return sex==0?"女":"男";
+			},
+			//获取用户信息
+			getAll(){
+				getUserdata().then(res =>{
+					this.dataTotal = res;
+					
+					for(let i=0;i<this.Page.pageSize;i++)
+					{
+						this.dataCurrent.push(this.dataTotal[i]);
+					}
+					this.Page.pageNum = Math.floor(this.dataTotal.length / this.Page.pageSize);
+					if((this.dataTotal.length % this.Page.pageSize) != 0)
+					{
+						this.Page.pageNum++;
+					}
+					if(this.Page.pageShow >= this.Page.pageNum)
+					{
+						this.Page.pageShow = this.Page.pageNum;
+					}
+				});
+			},
 			//单选事件
 			checkedOne (index) {
 				let idIndex = this.checkList.indexOf(index)
@@ -187,7 +207,7 @@
 				}	
 			},
 			add(){
-				this.$router.push("/user/add");
+				this.$router.push("/users/add");
 			}
 		},
 		components:{

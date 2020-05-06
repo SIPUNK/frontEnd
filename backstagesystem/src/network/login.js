@@ -9,3 +9,12 @@ export function login(user){
 		}
 	})
 }
+export function regist(user){
+	return request({
+		url:'/User/regist',
+		method:"post",
+		params:{
+			user
+		}
+	})
+}

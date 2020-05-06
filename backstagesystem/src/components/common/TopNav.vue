@@ -6,7 +6,7 @@
 	        <a class="navbar-brand">烤盐屋后台</a>
 	      </div>
 		  <div id="user" class="nav navbar-nav navbar-right">
-			   <a class="navbar-brand">{{ $store.state.nickname }}</a>
+			   <a class="navbar-brand">{{ $store.state.user.nickname }}</a>
 			   <a class="navbar-brand">  你好 !</a>
 			   <a id="skip" @click="quit">
 				  退出登录

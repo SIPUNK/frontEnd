@@ -182,8 +182,14 @@ table td{
 .detail_form_group{
 	display: block ruby;
 	width: 40%;
+	margin-left: -80px;
 	margin-top: 30px;
 	margin-bottom: 30px;
+	text-align: right;
+}
+.detail_form_group .my_label{
+	width: 10em;
+	margin-right: 10px;
 	text-align: right;
 }
 .submit_button{

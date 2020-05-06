@@ -11,6 +11,8 @@ import NewsCollege from '../views/news/College/collegeNews'
 import NewsCarousel from '../views/news/Carousel/carousel'
 
 import Users from '../views/users/user'
+import UserAdd from '../views/users/userAdd.vue'
+import UserEdit from '../views/users/userEdit.vue'
 import Admin from '../views/users/admin'
 import AdminAdd from '../views/users/adminAdd.vue'
 
@@ -55,6 +57,14 @@ const routes = [
 	{
 		path: '/users',
 		component: Users
+	},
+	{
+		path: '/users/add',
+		component: UserAdd
+	},
+	{
+		path: '/users/edit/:id',
+		component: UserEdit
 	},
 	{
 		path: '/admin',

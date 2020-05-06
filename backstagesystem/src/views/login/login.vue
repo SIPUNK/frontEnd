@@ -39,7 +39,6 @@
 		mounted(){
 		  /*页面挂载获取cookie，如果存在username的cookie，则跳转到主页，不需登录*/
 		  if(getCookie('username')){
-			  console.log("挂载")
 		      this.$router.push('/home');
 		  }  
 		  else
@@ -71,12 +70,12 @@
 					  }
 					  else
 					  {
-						  this.$store.commit('login');
+						  
 					      setCookie('username',this.user.username,1000*60);
 						  this.$http.get('http://118.178.184.69:4396/User/findbyname',{params:{
 							username:this.user.username  
 						  }}).then((res)=>{
-							  console.log(res.data);
+							this.$store.commit('login',res.data);
 						  })
 					      this.$router.push('/home');
 					  }            

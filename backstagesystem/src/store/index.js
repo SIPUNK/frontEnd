@@ -6,12 +6,13 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
 	state:{
-		nickname: '',
+		user:{},
 		isLogin: true
 	},
 	mutations:{
-		login (state){
+		login (state,user){
 			state.isLogin = true
+			state.user = user
 		},
 		logout (state){
 			state.isLogin = false
