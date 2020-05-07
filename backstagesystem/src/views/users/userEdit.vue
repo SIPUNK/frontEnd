@@ -24,13 +24,11 @@
 			  </div>
 			  <div class="form-group detail_form_group" style="width: 140px;">
 			    <label for="exampleInputEmail1" class="my_label">性别：</label>
-				<div class="radio">
-				</div>
-			    <input type="radio" id="man" name="sex" value="1" v-model="user.sex">
-			    <label for="man" style="margin-right: 10px;">男</label>
-			    <input type="radio" id="woman" name="sex" value="0" v-model="user.sex">
-			    <label for="woman">女</label>
-			    <br> 
+				<select v-model="user.sex">
+				    <option disabled value="">请选择</option>
+				    <option value="1">男</option>
+				    <option value="0">女</option>
+				</select>
 			  </div>
 			  <button type="submit" class="btn btn-success btn-lg submit_button" @click="edit">编辑</button>
 			</form>

@@ -24,15 +24,14 @@
 			  </div>
 			  <div class="form-group detail_form_group" style="width: 140px;">
 			    <label for="exampleInputEmail1" class="my_label">性别：</label>
-				<div class="radio">
-				</div>
-			    <input type="radio" id="man" name="sex" value="1" v-model="user.sex">
-			    <label for="man" style="margin-right: 10px;">男</label>
-			    <input type="radio" id="woman" name="sex" value="0" v-model="user.sex">
-			    <label for="woman">女</label>
+				<select v-model="user.sex">
+				    <option disabled value="">请选择</option>
+				    <option value="1">男</option>
+				    <option value="0">女</option>
+				</select>
 			    <br> 
 			  </div>
-			  <button type="submit" class="btn btn-success btn-lg submit_button" @click="add">增加</button>
+			  <button class="btn btn-success btn-lg submit_button" @click="add">增加</button>
 			</form>
 		</div>
 	</div>
@@ -66,7 +65,7 @@
 		},
 		methods:{
 			returnTo (){
-				this.$router.go(-1);
+				this.$router.push("/users");
 			},
 			add (){
 				this.$http.post('http://118.178.184.69:4396/User/regist',this.user).then((res)=>{

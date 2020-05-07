@@ -3,8 +3,6 @@
 		<div class="col-sm-10 col-sm-offset-1">
 			<h4>用户管理</h4>
 			<userlist></userlist>
-			
-			
 		</div>
 	</div>
 </template>

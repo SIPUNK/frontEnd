@@ -132,6 +132,8 @@ table td{
 }
 .find_group{
 	margin-bottom: 20px;
+	margin-left: 30px;
+	padding-bottom: 30px;
 }
 .find_input{
 	width: 30%;
@@ -140,6 +142,11 @@ table td{
 }
 .find_button{
 	margin-bottom: 3px;
+	margin-right: 30px;
+}
+.nofind{
+	margin-left: 97px;
+	color: red;
 }
 
 /* 登录页面样式 */
