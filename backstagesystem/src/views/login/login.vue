@@ -64,21 +64,18 @@
 				else
 				{
 					this.$http.post('http://118.178.184.69:4396/User/login',this.user).then((res)=>{
-					  //console.log(res)
-					  if(res.data == false)
+					  if(res.data == true)
 					  {
-					     this.passwordError = "密码错误!";
+					     setCookie('username',this.user.username,1000*60);
+						 let data = {"username":this.user.username} 
+					     this.$http.post('http://118.178.184.69:4396/User/findbyname',data).then((res)=>{
+					     	this.$store.commit('login',res.data);
+					     })
+					     this.$router.push('/home');
 					  }
 					  else
 					  {
-						  
-					      setCookie('username',this.user.username,1000*60);
-						  this.$http.get('http://118.178.184.69:4396/User/findbyname',{params:{
-							username:this.user.username  
-						  }}).then((res)=>{
-							this.$store.commit('login',res.data);
-						  })
-					      this.$router.push('/home');
+						  this.passwordError = "用户名或密码错误!";
 					  }            
 					})
 				}

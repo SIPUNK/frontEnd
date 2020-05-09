@@ -20,7 +20,7 @@
 			  </div>
 			  <div class="form-group detail_form_group">
 			    <label for="exampleInputEmail1" class="my_label">电话号码：</label>
-			    <input type="input" class="form-control" v-model="user.phone" placeholder="请输入电话号码">
+			    <input type="input" class="form-control" v-model="user.phone" disabled="disabled" placeholder="修改电话号码的接口未实现">
 			  </div>
 			  <div class="form-group detail_form_group" style="width: 140px;">
 			    <label for="exampleInputEmail1" class="my_label">性别：</label>
@@ -50,7 +50,8 @@
 					password:"",
 					phone:"",
 					sex:""
-				}
+				},
+				oldPassword:""
 			}
 		},
 		mounted() {
@@ -61,12 +62,11 @@
 			if(uname == ""){
 			    this.$router.push('/login')
 			}
-			
-			this.$http.get('http://118.178.184.69:4396/User/findbyid',{params:{
-			user_id:this.$route.params.id  
-			}}).then((res)=>{
+			let data = {"user_id":parseInt(this.$route.params.id)}
+			this.$http.post('http://118.178.184.69:4396/User/findbyid',data).then((res)=>{
 				//console.log(res)
 				this.user = res.data;
+				this.oldPassword = this.user.password;
 			})
 		},
 		methods:{
@@ -74,11 +74,27 @@
 				this.$router.go(-1);
 			},
 			edit (){
-				this.$http.post('http://118.178.184.69:4396/User/changenickname',{params:{
-			user_id:this.user.user_id,nickname:this.user.nickname  
-			}}).then((res)=>{
-					
+				let data1 = {date:this.user.nickname,user_id:this.$route.params.id}
+				let data2 = 
+				{
+					newPassword:this.user.password,
+					oldPassword:this.oldPassword,
+					user_id:this.$route.params.id,
+				}
+				let data3 = {date:parseInt(this.user.sex),user_id:this.$route.params.id}
+				this.$http.post('http://118.178.184.69:4396/User/changenickname',data1)
+				.then((res)=>{
+
 				})
+				this.$http.post('http://118.178.184.69:4396/User/changepassword',data2)
+				.then((res)=>{
+
+				})
+				this.$http.post('http://118.178.184.69:4396/User/changesex',data3)
+				.then((res)=>{
+
+				})
+				alert("修改成功！");
 			}
 		},
 		components:{

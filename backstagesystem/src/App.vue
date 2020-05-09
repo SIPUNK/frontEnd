@@ -5,7 +5,7 @@
 		<side-bar></side-bar>
 	</div>
 	<div class="container">
-		<router-view></router-view>
+		<router-view v-if="isRouterAlive"></router-view>
 	</div>
   </div>
 </template>
@@ -17,9 +17,25 @@ import SideBar from "./components/common/SideBar.vue"
 
 export default {
   name: 'app',
+  provide(){
+      return {
+        reload:this.reload
+      }
+  },
+  data:function(){
+	  return{
+		  isRouterAlive:true
+	  }
+  },
   components: {
 	TopNav,
 	SideBar
+  },
+  methods:{
+	  reload () {
+	       this.isRouterAlive = false
+	       this.$nextTick(() => (this.isRouterAlive = true))
+	     }   
   }
 }
 </script>

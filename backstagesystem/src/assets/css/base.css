@@ -80,6 +80,12 @@ table td{
 	overflow:hidden;
 	text-overflow: ellipsis;
 }
+.operation_th{
+	width: 160px;
+}
+.delete{
+	color: red;
+}
 #checkAll{
 	margin-left: 20px;
 	margin-bottom: 20px;

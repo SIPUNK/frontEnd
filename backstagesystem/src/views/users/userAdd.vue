@@ -11,25 +11,8 @@
 			    <input type="input" class="form-control" v-model="user.username" placeholder="请输入用户名">
 			  </div>
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">昵称：</label>
-			    <input type="input" class="form-control" v-model="user.nickname" placeholder="请输入昵称">
-			  </div>
-			  <div class="form-group detail_form_group">
 			    <label for="exampleInputEmail1" class="my_label">密码：</label>
 			    <input type="input" class="form-control" v-model="user.password" placeholder="请输入密码">
-			  </div>
-			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">电话号码：</label>
-			    <input type="input" class="form-control" v-model="user.phone" placeholder="请输入电话号码">
-			  </div>
-			  <div class="form-group detail_form_group" style="width: 140px;">
-			    <label for="exampleInputEmail1" class="my_label">性别：</label>
-				<select v-model="user.sex">
-				    <option disabled value="">请选择</option>
-				    <option value="1">男</option>
-				    <option value="0">女</option>
-				</select>
-			    <br> 
 			  </div>
 			  <button class="btn btn-success btn-lg submit_button" @click="add">增加</button>
 			</form>
@@ -47,10 +30,7 @@
 			return{
 				user:{
 					username:"",
-					nickname:"",
-					password:"",
-					phone:"",
-					sex:""
+					password:""
 				}
 			}
 		},

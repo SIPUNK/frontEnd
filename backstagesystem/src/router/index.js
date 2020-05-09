@@ -16,8 +16,11 @@ import UserEdit from '../views/users/userEdit.vue'
 import Admin from '../views/users/admin'
 import AdminAdd from '../views/users/adminAdd.vue'
 
-import CommunityIndex from '../views/community/index'
-import CommunityDetail from '../views/community/detail'
+import Post from '../views/community/post.vue'
+import PostAdd from '../views/community/postAdd.vue'
+import PostEdit from '../views/community/postEdit.vue'
+import Comment from '../views/community/comment.vue'
+
 
 import Settings from '../views/settings/settings'
 
@@ -75,12 +78,20 @@ const routes = [
 		component: AdminAdd
 	},
 	{
-		path: '/community/index',
-		component: CommunityIndex
+		path: '/community/post',
+		component: Post
 	},
 	{
-		path: '/community/detail',
-		component: CommunityDetail
+		path: '/community/post/add',
+		component: PostAdd
+	},
+	{
+		path: '/community/post/edit/:invitation_id',
+		component: PostEdit
+	},
+	{
+		path: '/community/comment',
+		component: Comment
 	},
 	{
 		path: '/settings',

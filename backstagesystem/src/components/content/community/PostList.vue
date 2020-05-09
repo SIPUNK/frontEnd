@@ -1,7 +1,7 @@
 <template>
 	<div id="userIndex">
 		<!-- 用户查找组件 -->
-		<div id="newsFind" class="newsDiv">
+		<div id="postFind" v-show="false" class="newsDiv">
 			<h4 class="find_title">用户搜索</h4>
 			<div class="form-group find_group">
 			  <label>按用户ID查找：</label>
@@ -22,10 +22,10 @@
 			<div id="divHeader">
 				<span class="myspan">
 					<br>&nbsp;&nbsp;&nbsp;&nbsp;
-					用户列表
+					帖子列表
 				</span>
 				<button class="btn btn-success mybutton" @click="add">
-					添加用户
+					添加帖子
 				</button>
 				<div class="line">	
 				</div>
@@ -35,37 +35,35 @@
 					<thead>
 						<tr>
 						  <th>选择</th>
-						  <th>用户ID</th>
-						  <th>用户名</th>
-						  <th>昵称</th>
-						  <th>密码</th>
-						  <th>电话号码</th>
-						  <th>性别</th>
-						  <th>账号状态</th>
-						  <th>发帖数</th>
-						  <th>评论数</th>
-						  <th>关注</th>
+						  <th>帖子ID</th>
+						  <th>帖子标题</th>
+						  <th>帖子内容</th>
+						  <th>帖子所属版块</th>
+						  <th>浏览量</th>
+						  <th>发帖人ID</th>
+						  <th>帖子状态</th>
+						  <th>发帖时间</th>
+						  <th>最后更新时间</th>
 						  <th class="operation_th">操作</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr v-for="(item,index) in dataCurrent">
 						  <td><input v-bind:checked="isCheckedAll" type="checkbox" name="checkItem" @click="checkedOne(index)"/></td>
-						  <td>{{ item.user_id }}</td>
-						  <td>{{ item.username }}</td>
-						  <td>{{ item.nickname }}</td>
-						  <td>{{ item.password }}</td>
-						  <td>{{ item.phone }}</td>
-						  <td>{{ getSex(item.sex) }}</td>
-						  <td>{{ getBan(item.isBan) }}</td>
-						  <td>{{ item.invitation_number }}</td>
-						  <td>{{ item.comment_number }}</td>
-						  <td>{{ item.follow }}</td>
+						  <td>{{ item.invitation_id }}</td>
+						  <td>{{ item.invitation_title }}</td>
+						  <td>{{ item.content }}</td>
+						  <td>{{ item.plate }}</td>
+						  <td>{{ item.scan_number }}</td>
+						  <td>{{ item.post_user }}</td>
+						  <td>{{ getStatus(item.invitation_status) }}</td>
+						  <td>{{ item.create_time }}</td>
+						  <td>{{ item.update_time }}</td>
 						  <td>
-						  	<a @click="edit(item.user_id)">编辑  </a>
-							<a v-show="!item.isBan" @click="changeBan(item.isBan,item.user_id)">封禁   </a>
-							<a v-show="item.isBan" @click="changeBan(item.isBan,item.user_id)">解封   </a>
-						  	<a class="delete">删除</a>
+						  	<a @click="edit(item.invitation_id)">编辑  </a>
+							<a v-show="!item.invitation_status" @click="changeBan(item.invitation_status,item.invitation_id)">隐藏   </a>
+							<a v-show="item.invitation_status" @click="changeBan(item.invitation_status,item.invitation_id)">显示   </a>
+						  	<a>删除</a>
 						  </td>
 						</tr>
 					</tbody>
@@ -126,50 +124,31 @@
 		},
 		methods:{
 			//改变封禁状态
-			changeBan(isBan,user_id){
-				isBan==0?isBan=1:isBan=0;
-				let data = {date:isBan,user_id:user_id};
-				this.$http.post("http://118.178.184.69:4396/User/isban",data).then(res =>{
+			changeBan(status,invitation_id){
+				status==0?status=1:status=0;
+				let data = {date:status,invitation_id:invitation_id};
+				this.$http.post("http://118.178.184.69:4396/invitation/changestatus",data).then(res =>{
 					this.reload();
 				})
 			},
-			//编辑用户
-			edit(id){
-				this.$router.push('/users/edit/'+id);
-			},
 			//获取封禁状态
-			getBan(isBan){
-				if(isBan == 0)
+			getStatus(status){
+				if(status == 0)
 				{
 					return "正常"
 				}
-				else if(isBan == 1)
+				else if(status == 1)
 				{
-					return "封禁";
+					return "隐藏";
 				}
 				else
 				{
 					return "";
 				}
 			},
-			//获取用户性别
-			getSex(sex){
-				if(sex == 0)
-				{
-					return "女"
-				}
-				else if(sex == 1)
-				{
-					return "男";
-				}
-				else
-				{
-					return "";
-				}
-			},
-			//获取用户信息
+			//获取帖子信息
 			getAll(){
-				this.$http.post('http://118.178.184.69:4396/User/findall').then(res =>{
+				this.$http.post('http://118.178.184.69:4396/invitation/getinvitation').then(res =>{
 					this.dataTotal = res.data;
 					for(let i=0;i<this.Page.pageSize;i++)
 					{
@@ -191,10 +170,7 @@
 			findById(){
 				if(this.findId != "")
 				{
-					this.idNoFind = "";
-					this.usernameNoFind = "";
-					let data = {"user_id":parseInt(this.findId)} 
-					this.$http.post('http://118.178.184.69:4396/User/findbyid',data).then((res)=>{
+					this.$http.post('http://118.178.184.69:4396/User/findbyid',this.findId).then((res)=>{
 							if(res.data != "")
 							{
 								this.dataCurrent = [];
@@ -212,11 +188,7 @@
 			findByUsername(){
 				if(this.findUsername != "")
 				{
-					this.idNoFind = "";
-					this.usernameNoFind = "";
-					let data1 = {"username":this.findUsername} 
-					console.log(data1)
-					this.$http.post('http://118.178.184.69:4396/User/findbyname',data1).then(res =>{
+					this.$http.post('http://118.178.184.69:4396/User/findbyname',this.findUsername).then((res)=>{
 						if(res.data != "")
 						{
 							this.dataCurrent = [];
@@ -234,6 +206,7 @@
 			clear(){
 				if(this.findId != "" || this.findUsername != "")
 				{
+					console.log("qk")
 					this.findId = "";
 					this.findUsername = "";
 					this.idNoFind = "";
@@ -334,7 +307,7 @@
 				}	
 			},
 			add(){
-				this.$router.push("/users/add");
+				this.$router.push("/community/post/add");
 			}
 		},
 		components:{

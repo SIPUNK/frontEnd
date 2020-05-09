@@ -62,17 +62,17 @@
 					{
 						name:"社区管理",
 						img:"glyphicon glyphicon-comment",
-						path: '/community/index'
+						path: '/community/post'
 					},
 					{
-						name:"社区首页",
+						name:"帖子管理",
 						img:"left",
-						path: '/community/index'
+						path: '/community/post'
 					},
 					{
-						name:"社区详情页",
+						name:"评论管理",
 						img:"left",
-						path: '/community/detail'
+						path: '/community/comment'
 					},
 					{
 						name:"系统设置",
