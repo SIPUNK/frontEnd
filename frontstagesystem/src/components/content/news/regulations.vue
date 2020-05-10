@@ -1,25 +1,18 @@
 <template>
 	<div class="regulations">
 		<p class="title">2020全国硕士学位研究生招生信息公布院校汇总</p>
-		<ul class="ul">
-			<li v-for="(value,index) in contentList">
-				<a :href="value.href" class="link">
+		<ul class="regulations-ul">
+			<li v-for="(value,index) in contentList" class="regulations-li">
+				<a :href="value.href" class="regulations-link">
 					{{value.content}}
 				</a>
 			</li>
 		</ul>
 
 		<p class="title">2020考研如何解读各校专业目录</p>
-		<ul class="unusualUl">
-			<li v-for="(value,index) in contentList2">
-				<a :href="value.href" class="link" v-if="index<contentList2.length/2">
-					{{value.content}}
-				</a>
-			</li>
-		</ul>
-		<ul class="ul">
-			<li v-for="(value,index) in contentList2">
-				<a :href="value.href" class="link" v-if="index>=contentList2.length/2">
+		<ul class="regulations-ul">
+			<li v-for="(value,index) in contentList2" class="regulations-li">
+				<a :href="value.href" class="regulations-link">
 					{{value.content}}
 				</a>
 			</li>
@@ -27,9 +20,9 @@
 
 
 		<p class="title">2020年最新院校复试分数线</p>
-		<ul class="ul" v-for="(value,index) in contentList3">
-			<li >
-				<a :href="value.href" class="link">
+		<ul class="regulations-ul" >
+			<li v-for="(value,index) in contentList3" class="regulations-li">
+				<a :href="value.href" class="regulations-link">
 					{{value.content}}
 				</a>
 			</li>
@@ -113,7 +106,7 @@
 	.regulations {
 		display: inline-block;
 		position: relative;
-		top: -50px;
+		left: 50px;
 	}
 
 	.title {
@@ -128,7 +121,7 @@
 		text-align: center;
 	}
 
-	.link {
+	.regulations-link {
 		font-family: SourceHanSansSC;
 		font-weight: 400;
 		font-size: 18px;
@@ -138,13 +131,11 @@
 		line-height: 30px;
 		text-decoration: none;
 	}
-
-	.ul {
-		padding-inline-start: 0;
+	.regulations-ul {
+		list-style: none;
 	}
-
-	.unusualUl {
-		padding-inline-start: 80px;
+	.regulations-li {
+		text-align: center;
 	}
 	
 

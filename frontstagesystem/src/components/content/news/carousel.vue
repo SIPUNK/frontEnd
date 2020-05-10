@@ -18,8 +18,8 @@
 	import carousel1 from 'assets/img/news/carousel1.png'
 	import carousel2 from 'assets/img/news/carousel2.png'
 	import carousel3 from 'assets/img/news/carousel3.png'
-	
-	export default{
+
+	export default {
 		name: 'carousel',
 		data() {
 			return {
@@ -42,7 +42,7 @@
 				currentIndex: 0,
 				timer: ''
 			}
-			
+
 		},
 		methods: {
 			go() {
@@ -72,15 +72,14 @@
 			})
 		}
 	}
-	
 </script>
 
 <style>
 	.carousel-wrap {
 		/* height: 453px;
 		width: 100%; */
-		    height: 280px;
-		    width: 22%;
+		height: 280px;
+		width: 22%;
 		overflow: hidden;
 		background-color: #fff;
 		display: inline-block;
@@ -91,6 +90,7 @@
 		position: relative;
 		width: 100%;
 		height: 100%;
+		list-style: none;
 	}
 
 	.slide-ul li {
@@ -103,8 +103,8 @@
 		/* width: 100%;
 		height: 100%; */
 		position: relative;
-		    right: 220px;
-		    top: 40px;
+		/* bottom: 30px; */
+		right: 10px;
 	}
 
 	.carousel-items {

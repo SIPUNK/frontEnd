@@ -19,17 +19,17 @@
 			theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
 		}
 	}
-	console.log(theRequest.name)
+	console.log(theRequest.school)
 
 
-	// let imgUrl = 'assets/img/news/collegeLogo/' + theRequest.name + 'Logo.jpg'
+	// let imgUrl = 'assets/img/news/collegeLogo/' + theRequest.school + 'Logo.jpg'
 
 	export default {
 		name: 'detailTitle',
 		data() {
 			return {
-				image: require('assets/img/news/collegeLogo/' + theRequest.name + 'Logo.jpg'),
-				name: theRequest.name,
+				image: require('assets/img/news/collegeLogo/' + theRequest.school + 'Logo.jpg'),
+				name: theRequest.school,
 				label: [
 					'双一流', '211'
 				]

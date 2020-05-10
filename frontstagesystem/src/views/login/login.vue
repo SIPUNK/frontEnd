@@ -2,20 +2,21 @@
 	<div>
 		<div class="login-wrap" v-show="showLogin">
 			<h3>登录</h3>
-			<p v-show="showRemind">{{remind}}</p>
-			<input type="text" placeholder="请输入用户名" v-model="username">
-			<input type="password" placeholder="请输入密码" v-model="password">
-			<button v-on:click="login">登录</button>
-			<span v-on:click="ToRegister">没有账号？马上注册</span>
+			<p v-show="showRemind" class="login-p">{{remind}}</p>
+			<input type="text" placeholder="请输入用户名" v-model="username" class="login-input">
+			<input type="password" placeholder="请输入密码" v-model="password" class="login-input">
+			<button v-on:click="login" class="login-button">登录</button>
+			<span v-on:click="ToRegister" class="login-span">没有账号？马上注册</span>
 		</div>
 
 		<div class="register-wrap" v-show="showRegister">
 			<h3>注册</h3>
-			<p v-show="showRemind">{{remind}}</p>
-			<input type="text" placeholder="请输入用户名" v-model="newUsername">
-			<input type="password" placeholder="请输入密码" v-model="newPassword">
-			<button v-on:click="register">注册</button>
-			<span v-on:click="ToLogin">已有账号？马上登录</span>
+			<p v-show="showRemind" class="login-p">{{remind}}</p>
+			<input type="text" placeholder="请输入用户名" v-model="newUsername" class="login-input">
+			<input type="password" placeholder="请输入密码" v-model="newPassword" class="login-input">
+			<input type="password" placeholder="请输入密码" v-model="newPassword" class="login-input">
+			<button v-on:click="register" class="login-button">注册</button>
+			<span v-on:click="ToLogin" class="login-span">已有账号？马上登录</span>
 		</div>
 	</div>
 </template>
@@ -29,7 +30,7 @@
 		text-align: center;
 	}
 
-	input {
+	.login-input {
 		display: block;
 		width: 250px;
 		height: 40px;
@@ -42,11 +43,11 @@
 		box-sizing: border-box;
 	}
 
-	p {
+	.login-p {
 		color: red;
 	}
 
-	button {
+	.login-button {
 		display: block;
 		width: 250px;
 		height: 40px;
@@ -59,11 +60,11 @@
 		margin-bottom: 5px;
 	}
 
-	span {
+	.login-span {
 		cursor: pointer;
 	}
 
-	span:hover {
+	.login-span:hover {
 		color: #41b883;
 	}
 </style>
@@ -103,34 +104,34 @@
 				this.showLogin = true
 			},
 			login() {
-				// if (this.username == "" || this.password == "") {
-				// 	alert("请输入用户名或密码")
-				// } else {
-				// 	let data = {
-				// 		'username': this.username,
-				// 		'password': this.password
-				// 	}
-				// 	/*接口请求*/
-				// 	this.$http.post('http://localhost/vueapi/index.php/Home/user/login', data).then((res) => {
-				// 		console.log(res)
-				// 		/*接口的传值是(-1,该用户不存在),(0,密码错误)，同时还会检测管理员账号的值*/
-				// 		if (res.data == -1) {
-				// 			this.remind = "该用户不存在"
-				// 			this.showRemind = true
-				// 		} else if (res.data == 0) {
-				// 			this.remind = "密码输入错误"
-				// 			this.showRemind = true
-				// 		} else {
-				// 			this.remind = "登录成功"
-				// 			this.showRemind = true
-				// 			setCookie('username', this.username, 1000 * 60)
-				// 			setTimeout(function() {
-				// 				this.$router.push('/home')
-				// 			}.bind(this), 1000)
-				// 		}
-				// 	})
-				// }
-				this.$router.push('/home')
+				if (this.username == "" || this.password == "") {
+					alert("请输入用户名或密码")
+				} else {
+					let data = {
+						'username': this.username,
+						'password': this.password
+					}
+					/*接口请求*/
+					this.$http.post('http://118.178.184.69:4396/User/login', data).then((res) => {
+						console.log(res)
+						/*接口的传值是(false,密码错误)*/
+						if (res.data == false) {
+							alert("密码输入错误")
+							this.password = ''
+						} else if (res.data == true) {
+							alert("登录成功")
+							setCookie('username', this.username, 1000 * 60)
+							setTimeout(function() {
+								this.$router.push('/home')
+							}.bind(this), 1000)
+						}
+					},
+					(error) => {
+						if(error.status == '500') {
+							alert('用户不存在')
+						}
+					})
+				}
 			},
 			register() {
 				if (this.newUsername == "" || this.newPassword == "") {
@@ -140,11 +141,10 @@
 						'username': this.newUsername,
 						'password': this.newPassword
 					}
-					this.$http.post('http://localhost/vueapi/index.php/Home/user/register', data).then((res) => {
+					this.$http.post('http://118.178.184.69:4396/User/regist', data).then((res) => {
 						console.log(res)
-						if (res.data == "ok") {
-							this.remind = "注册成功"
-							this.showRemind = true
+						if (res.data == true) {
+							alert('注册成功')
 							this.username = ''
 							this.password = ''
 							/*注册成功之后再跳回登录页*/
@@ -152,7 +152,10 @@
 								this.showRegister = false
 								this.showLogin = true
 								this.showRemind = false
-							}.bind(this), 1000)
+							}.bind(this), 300)
+						}
+						else {
+							alert('用户已存在')
 						}
 					})
 				}

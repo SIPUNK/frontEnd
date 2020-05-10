@@ -1,9 +1,10 @@
 <template>
 	<div>
-		<!-- <h3>欢迎 {{name}}</h3> -->
+		<h3>欢迎 {{name}}</h3>
 		<a href="/" @click="quit" id="quit">注销登录</a>
 		<div>
 			<homeCount></homeCount>
+			<timeDown :endTime='endTime' id="days"></timeDown>
 		</div>
 		<div>
 			<timeLine></timeLine>
@@ -17,15 +18,17 @@
 		setCookie,
 		getCookie,
 		delCookie
-	} from '../../assets/js/cookie.js'
-	
+	} from 'assets/js/cookie.js'
+
 	import timeLine from '@/components/content/home/timeLine.vue'
 	import homeCount from '@/components/content/home/homeCount.vue'
-	
+	import timeDown from '@/components/common/timeDown.vue'
+
 	export default {
 		data() {
 			return {
-				
+				name: '',
+				endTime: '2020-12-19 8:30:00'
 			}
 		},
 		mounted() {
@@ -33,9 +36,9 @@
 			let uname = getCookie('username')
 			this.name = uname
 			/*如果cookie不存在，则跳转到登录页*/
-			// if (uname == "") {
-			// 	this.$router.push('/')
-			// }
+			if (uname == "") {
+				this.$router.push('/')
+			}
 		},
 		methods: {
 			quit() {
@@ -43,16 +46,22 @@
 				delCookie('username')
 			}
 		},
-		components:{
+		components: {
 			timeLine,
-			homeCount
+			homeCount,
+			timeDown
 		}
 	}
-	
 </script>
 <style>
 	#quit {
 		color: #FF0000;
 	}
-	
+
+	#days {
+		position: relative;
+		left: 900px;
+		bottom: 300px;
+		width: 200px;
+	}
 </style>
