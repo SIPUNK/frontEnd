@@ -117,7 +117,7 @@
 					this.CommentNum = res.data.comment_number
 					this.user_id = res.data.user_id
 					this.nickName = res.data.nickname
-					
+
 					//获取该用户的发帖记录
 					let data2 = {
 						"index": {},
@@ -129,13 +129,22 @@
 							}
 						},
 						(error) => {})
-						
+
 					//获取该用户的评论记录
 					let data3 = {
 						"index": {},
 						"user_id": res.data.user_id
 					}
 					this.$http.post('http://118.178.184.69:4396/User/getcomment', data3).then((res) => {
+							
+							for (let i = 0; i < res.data.length; i++) {
+								for (let j = 0; j < this.invitation_table.length; j++) {
+									if(res.data[i].comment_invitation == this.invitation_table[j].invitation_id){
+										res.data[i].comment_invitation = this.invitation_table[j].invitation_title
+									}
+								}
+							}
+							
 							for (let i = 0; i < res.data.length; i++) {
 								this.comment_table.push(res.data[i])
 							}
