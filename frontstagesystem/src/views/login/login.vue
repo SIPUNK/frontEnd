@@ -14,7 +14,6 @@
 			<p v-show="showRemind" class="login-p">{{remind}}</p>
 			<input type="text" placeholder="请输入用户名" v-model="newUsername" class="login-input">
 			<input type="password" placeholder="请输入密码" v-model="newPassword" class="login-input">
-			<input type="password" placeholder="请输入密码" v-model="newPassword" class="login-input">
 			<button v-on:click="register" class="login-button">注册</button>
 			<span v-on:click="ToLogin" class="login-span">已有账号？马上登录</span>
 		</div>
