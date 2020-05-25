@@ -87,7 +87,6 @@
 				CommentNum: '',
 				ClassNum: '0',
 				invitation_table: [],
-				all_invitation: [],
 				comment_table: [],
 
 				fatieShow: true,
@@ -136,24 +135,19 @@
 						"index": {},
 						"user_id": res.data.user_id
 					}
-					this.$http.post('http://118.178.184.69:4396/User/getcomment', data3).then((res1) => {
-							this.$http.post('http://118.178.184.69:4396/invitation/getinvitation', ).then((res) => {
-									for (let i = 0; i < res.data.length; i++) {
-										this.all_invitation.push(res.data[i])
+					this.$http.post('http://118.178.184.69:4396/User/getcomment', data3).then((res) => {
+							
+							for (let i = 0; i < res.data.length; i++) {
+								for (let j = 0; j < this.invitation_table.length; j++) {
+									if(res.data[i].comment_invitation == this.invitation_table[j].invitation_id){
+										res.data[i].comment_invitation = this.invitation_table[j].invitation_title
 									}
-									for (let i = 0; i < res1.data.length; i++) {
-										for (let j = 0; j < this.all_invitation.length; j++) {
-											if(res1.data[i].comment_invitation == this.all_invitation[j].invitation_id){
-												res1.data[i].comment_invitation = this.all_invitation[j].invitation_title
-											}
-										}
-									}
-									for (let i = 0; i < res1.data.length; i++) {
-										this.comment_table.push(res1.data[i])
-									}
-									console.log(this.all_invitation)
-								},
-								(error) => {})
+								}
+							}
+							
+							for (let i = 0; i < res.data.length; i++) {
+								this.comment_table.push(res.data[i])
+							}
 						},
 						(error) => {})
 				},
