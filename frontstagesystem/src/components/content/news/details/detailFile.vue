@@ -18,6 +18,8 @@
 </template>
 
 <script>
+	import utils from 'assets/js/utils.js'
+	
 	let url = window.location.search;
 	let theRequest = new Object();
 	if (url.indexOf("?") != -1) {
@@ -28,7 +30,10 @@
 		}
 	}
 	console.log(theRequest.school)
-	// console.log(this.$route.query.school)
+	
+	let school = utils.getUrlKey('school')
+	console.log(school)
+	// console.log(this.$route.params.school)
 
 	export default {
 		name: 'detailFile',

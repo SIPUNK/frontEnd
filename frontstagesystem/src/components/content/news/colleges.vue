@@ -41,7 +41,7 @@
 		},
 		created() {
 			for (let i = 0; i < this.collegesList.length; i++) {
-				this.collegesList[i].clickUrl = '/news/detail' + '?school=' + this.collegesList[i].name
+				this.collegesList[i].clickUrl = '/news/detail/' + this.collegesList[i].name
 			}
 		}
 	}
