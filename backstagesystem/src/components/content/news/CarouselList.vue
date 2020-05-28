@@ -1,31 +1,14 @@
 <template>
-	<div id="userIndex">
-		<!-- 用户查找组件 -->
-		<div id="newsFind" class="newsDiv">
-			<h4 class="find_title">用户搜索</h4>
-			<div class="form-group find_group">
-			  <label>按用户ID查找：</label>
-			  <input type="input" class="form-control find_input" v-model="findId" id="findInput" placeholder="请输入用户ID">
-			  <button class="btn btn-success find_button" @click="findById">查找</button>
-			  <button class="btn btn-success find_button" @click="clear">清空所有搜索条件</button>
-			  <h4 class="nofind" v-model="idNoFind">{{ idNoFind }}</h4>
-			</div>
-			<div class="form-group find_group">
-			  <label>按用户名查找：</label>
-			  <input type="input" class="form-control find_input" v-model="findUsername" id="findInput" placeholder="请输入用户名">
-			  <button class="btn btn-success find_button" @click="findByUsername">查找</button>
-			  <h4 class="nofind" v-model="usernameNoFind">{{ usernameNoFind }}</h4>
-			</div>
-		</div>	
-		<!-- 用户列表组件 -->
+	<div id="carousel">
+		<!-- 轮播图列表组件 -->
 		<div class="newsDiv">
 			<div id="divHeader">
 				<span class="myspan">
 					<br>&nbsp;&nbsp;&nbsp;&nbsp;
-					用户列表
+					轮播图列表
 				</span>
 				<button class="btn btn-success mybutton" @click="add">
-					添加用户
+					添加轮播图
 				</button>
 				<div class="line">	
 				</div>
@@ -34,16 +17,10 @@
 				<table class="table table-bordered table-hover table-striped">
 					<thead>
 						<tr>
-						  <th>用户ID</th>
-						  <th>用户名</th>
-						  <th>昵称</th>
-						  <th>密码</th>
-						  <th>电话号码</th>
-						  <th>性别</th>
-						  <th>账号状态</th>
-						  <th>发帖数</th>
-						  <th>评论数</th>
-						  <th>关注</th>
+						  <th>名称</th>
+						  <th>缩略图</th>
+						  <th>说明</th>
+						  <th>添加时间</th>
 						  <th class="operation_th">操作</th>
 						</tr>
 					</thead>
@@ -53,16 +30,8 @@
 						  <td>{{ item.username }}</td>
 						  <td>{{ item.nickname }}</td>
 						  <td>{{ item.password }}</td>
-						  <td>{{ item.phone }}</td>
-						  <td>{{ getSex(item.sex) }}</td>
-						  <td>{{ getBan(item.isBan) }}</td>
-						  <td>{{ item.invitation_number }}</td>
-						  <td>{{ item.comment_number }}</td>
-						  <td>{{ item.follow }}</td>
 						  <td>
 						  	<a @click="edit(item.user_id)">编辑  </a>
-							<a v-show="!item.isBan" @click="changeBan(item.isBan,item.user_id)">封禁   </a>
-							<a v-show="item.isBan" @click="changeBan(item.isBan,item.user_id)">解封   </a>
 						  	<a class="delete">删除</a>
 						  </td>
 						</tr>
@@ -304,7 +273,7 @@
 				}	
 			},
 			add(){
-				this.$router.push("/users/add");
+				this.$router.push("/news/carousel/add");
 			}
 		},
 		components:{
@@ -315,3 +284,4 @@
 
 <style>
 </style>
+

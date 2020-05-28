@@ -1,31 +1,31 @@
 <template>
-		<div>
-			<h2>轮播图</h2>
-		  <vtable 
-		   :datat = "tableData"
-		   :thlabel="thlabel"
-		   :isEdit="true">
-		  </vtable>
-		 </div>
+	<div id="carouselIndex" class="container">
+		<div class="col-sm-10 col-sm-offset-1">
+			<h4 class="title">轮播图管理</h4>
+			<carouselList></carouselList>
+		</div>
+	</div>
 </template>
 
 <script>
-	import vtable from "../../../components/common/vtable.vue"
+	
+	import carouselList from '../../../components/content/news/CarouselList.vue'
+	import {getCookie} from '../../../assets/js/cookie.js'
+	
 	export default{
 		name:'carousel',
-		methods:{
-			
+		mounted(){
+			document.title = '轮播图管理'
+		    /*页面挂载获取保存的cookie值*/
+		    let uname = getCookie('username')
+		    /*如果cookie不存在，则跳转到登录页*/
+		    if(uname == ""){
+		        this.$router.push('/login')
+		    }        
 		},
-		data(){
-		   return{
-		    tableData:[{'a':'1','b':'2','c':'3','d':'8'},{'a':'4','b':'5',c:'6',d:'9'}],
-		    thlabel:[[{label:'测试1',prop:'a',rowspan:'2'},{label:'测试2'},{label:'测试3',colspan:'2'}],
-		      [{prop:'c',label:'表头2'},{prop:'b',label:'表头3'},{prop:'d',label:'表头4'}]]
-		   }
-		  },
-		  components:{
-			  vtable
-		  }
+		components:{
+			carouselList
+		}
 	}
 </script>
 

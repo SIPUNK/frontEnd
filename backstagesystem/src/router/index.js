@@ -3,12 +3,11 @@ import VueRouter from 'vue-router'
 
 import Login from '../views/login/login'
 
-import HomeIndex from '../views/home/index'
-
 import NewsIndex from '../views/news/Index/index'
 import Newsadd from '../views/news/Index/newsAdd.vue'
 import NewsCollege from '../views/news/College/collegeNews'
 import NewsCarousel from '../views/news/Carousel/carousel'
+import NewsCarouselAdd from '../views/news/Carousel/carouselAdd.vue'
 
 import Users from '../views/users/user'
 import UserAdd from '../views/users/userAdd.vue'
@@ -24,6 +23,11 @@ import Comment from '../views/community/comment.vue'
 
 import Settings from '../views/settings/settings'
 
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 Vue.use(VueRouter)
 
  
@@ -36,10 +40,6 @@ const routes = [
 	{
 		path: '/login',
 		component: Login
-	},
-	{
-		path: '/home',
-		component: HomeIndex
 	},
 	{
 		path: '/news/index',
@@ -56,6 +56,10 @@ const routes = [
 	{
 		path: '/news/carousel',
 		component: NewsCarousel
+	},
+	{
+		path: '/news/carousel/add',
+		component: NewsCarouselAdd
 	},
 	{
 		path: '/users',

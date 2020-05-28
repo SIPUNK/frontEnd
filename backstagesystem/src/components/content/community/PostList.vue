@@ -34,7 +34,6 @@
 				<table class="table table-bordered table-hover table-striped">
 					<thead>
 						<tr>
-						  <th>选择</th>
 						  <th>帖子ID</th>
 						  <th>帖子标题</th>
 						  <th>帖子内容</th>
@@ -49,7 +48,6 @@
 					</thead>
 					<tbody>
 						<tr v-for="(item,index) in dataCurrent">
-						  <td><input v-bind:checked="isCheckedAll" type="checkbox" name="checkItem" @click="checkedOne(index)"/></td>
 						  <td>{{ item.invitation_id }}</td>
 						  <td>{{ item.invitation_title }}</td>
 						  <td>{{ item.content }}</td>
@@ -72,8 +70,6 @@
 				</div>
 			</div>
 			<div id="divFooter" class="divFooter">
-				<input type="checkbox" id="checkAll" class="checkAll" @click="checkedAll()">  全选
-				<a>    批量删除</a>
 				<page v-show="!isFind" :Page="Page" v-on:first="first" v-on:last="last" v-on:pre="pre" v-on:next="next" v-on:goto="goto"></page>
 			</div>
 		</div>
@@ -87,7 +83,7 @@
 	import { getUserdata } from "../../../network/user.js"
 	
 	export default{
-		name:'userList',
+		name:'postList',
 		inject:["reload"],
 		data:function(){
 			return{
@@ -150,9 +146,11 @@
 			getAll(){
 				this.$http.post('http://118.178.184.69:4396/invitation/getinvitation').then(res =>{
 					this.dataTotal = res.data;
+					console.log(res.data);
+					
 					for(let i=0;i<this.Page.pageSize;i++)
 					{
-						if(this.dataTotal[i] != "")
+						if(this.dataTotal[i] !== undefined)
 							this.dataCurrent.push(this.dataTotal[i]);
 					}
 					this.Page.pageNum = Math.floor(this.dataTotal.length / this.Page.pageSize);
@@ -222,31 +220,6 @@
 						}
 					}	
 				}
-			},
-			//单选事件
-			checkedOne (index) {
-				let idIndex = this.checkList.indexOf(index)
-				if (idIndex >= 0) {
-				  // 如果已经包含了该项,则删去
-				  this.checkList.splice(idIndex, 1)
-				} else {
-				  // 选中该checkbox
-				  this.checkList.push(index)
-				}	
-			},
-			//全选事件
-			checkedAll () {
-			    this.isCheckedAll = !this.isCheckedAll
-			    if (this.isCheckedAll) {
-			      // 全选时
-			      this.checkList = []
-			      for(let i=0;i<this.dataCurrent.length;i++){
-					  this.checkList.push(i)
-				  }
-			    } 
-				else {
-			      this.checkList = []
-			    }  
 			},
 			//首页
 			first(page){

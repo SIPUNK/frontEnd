@@ -20,11 +20,6 @@
 			return{
 				first:[
 					{
-						name:"首页",
-						img:"glyphicon glyphicon-home",
-						path:"/home"
-					},
-					{
 						name:"资讯管理",
 						img:"glyphicon glyphicon-th-list",
 						path:"/news/index"

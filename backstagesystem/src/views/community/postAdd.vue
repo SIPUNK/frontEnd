@@ -5,21 +5,25 @@
 			<button class="btn btn-success return_button" @click="returnTo">
 				返回
 			</button>
-			<form>
+			<form class="form-horizontal" role="form">
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">帖子标题：</label>
-			    <input type="input" class="form-control" v-model="postInvitation.invitation_title" placeholder="请输入帖子标题">
+			    <label for="firstname" class="col-sm-2 control-label">帖子标题：</label>
+			    <div class="col-sm-3">
+			     <input type="input" class="form-control" v-model="postInvitation.invitation_title" placeholder="请输入帖子标题">
+			    </div>
 			  </div>
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">版块：</label>
-			    <input type="input" class="form-control" v-model="postInvitation.plate" disabled="disabled" placeholder="未注入数据,没有版块信息">
+			    <label for="lastname" class="col-sm-2 control-label">版块：</label>
+			    <div class="col-sm-3">
+			       <input type="input" class="form-control" v-model="postInvitation.plate" disabled="disabled" placeholder="未注入数据,没有版块信息">
+			    </div>
 			  </div>
-			  <div class="form-group">
-			    <label for="exampleInputEmail1" class="my_label">帖子内容：</label>
-			    <vue-editor v-model="postInvitation.content"></vue-editor>
-			  </div>
-			  <button class="btn btn-success btn-lg submit_button" @click="add">增加</button>
+			    <label for="lastname" class="control-label" style="margin-left: -14px;">帖子内容：</label>
+				<vue-editor v-model="postInvitation.content" style="margin-top: 40px;"></vue-editor>
+
+			  <button class="btn btn-success btn-lg submit_button" @click="add" style="margin-top: 20px;">添加</button>
 			</form>
+			
 		</div>
 	</div>
 </template>

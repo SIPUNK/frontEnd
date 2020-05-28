@@ -1,21 +1,27 @@
 <template>
-	<div id="addUser" class="container">
+	<div id="addCarousel" class="container">
 		<div class="col-sm-10 col-sm-offset-1 add_panel">
-			<h3>添加用户</h3>
+			<h3>添加轮播图</h3>
 			<button class="btn btn-success return_button" @click="returnTo">
 				返回
 			</button>
-			<form class="form-horizontal" role="form">
+			<form class="form-horizontal" role="form" style="position: relative;left: 30px;">
 			  <div class="form-group detail_form_group">
-			    <label for="firstname" class="col-sm-2 control-label">用户名：</label>
+			    <label for="firstname" class="col-sm-2 control-label">轮播图名称：</label>
 			    <div class="col-sm-3">
-			      <input type="input" class="form-control" v-model="user.username" placeholder="请输入用户名">
+			      <input type="input" class="form-control" v-model="user.username" placeholder="请输入轮播图名称">
 			    </div>
 			  </div>
 			  <div class="form-group detail_form_group">
-			    <label for="lastname" class="col-sm-2 control-label">密码：</label>
+			    <label for="firstname" class="col-sm-2 control-label">轮播图素材：</label>
 			    <div class="col-sm-3">
-			      <input type="input" class="form-control" v-model="user.password" placeholder="请输入密码">
+			      <preview-img></preview-img>
+			    </div>
+			  </div>
+			  <div class="form-group detail_form_group">
+			    <label for="lastname" class="col-sm-2 control-label">说明：</label>
+			    <div class="col-sm-3">
+			      <input type="input" class="form-control" v-model="user.password" placeholder="请输入说明">
 			    </div>
 			  </div>
 			  <button class="btn btn-success btn-lg submit_button" @click="add">添加</button>
@@ -27,7 +33,8 @@
 
 <script>
 	
-	import { getCookie } from "../../assets/js/cookie.js"
+	import { getCookie } from "../../../assets/js/cookie.js"
+	import PreviewImg from "../../../components/common/PreviewImg.vue"
 	
 	export default{
 		name:"userAdd",
@@ -50,19 +57,21 @@
 		},
 		methods:{
 			returnTo (){
-				this.$router.push("/users");
+				this.$router.push("/news/carousel");
 			},
 			add (){
 				this.$http.post('http://118.178.184.69:4396/User/regist',this.user).then((res)=>{
 					alert("用户添加成功！返回用户管理页面以查看！");
-					this.$router.push("/users");
+					this.$router.push("/news/carousel");
 				})
 			}
 		},
 		components:{
+			PreviewImg
 		}
 	}
 </script>
 
 <style>
 </style>
+

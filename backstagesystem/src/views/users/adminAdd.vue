@@ -5,7 +5,7 @@
 			<button class="btn btn-success return_button" @click="returnTo">
 				返回
 			</button>
-			<form>
+			<form class="form-horizontal" role="form">
 			  <div class="form-group detail_form_group">
 			    <label for="exampleInputEmail1">用户名：</label>
 			    <input type="input" class="form-control" v-model="username" placeholder="请输入用户名">

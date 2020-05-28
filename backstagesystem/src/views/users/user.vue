@@ -1,7 +1,7 @@
 <template>
 	<div id="newsIndex" class="container">
 		<div class="col-sm-10 col-sm-offset-1">
-			<h4>用户管理</h4>
+			<h4 class="title">用户管理</h4>
 			<userlist></userlist>
 		</div>
 	</div>

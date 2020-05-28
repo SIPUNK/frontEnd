@@ -5,32 +5,41 @@
 			<button class="btn btn-success return_button" @click="returnTo">
 				返回
 			</button>
-			<form>
+			
+			<form class="form-horizontal" role="form">
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">用户名：</label>
-			    <input type="input" class="form-control" v-model="user.username" disabled="disabled" placeholder="请输入用户名">
+			    <label class="col-sm-2 control-label">用户名：</label>
+			    <div class="col-sm-3">
+			     <input type="input" class="form-control" v-model="user.username" placeholder="请输入用户名">
+			    </div>
 			  </div>
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">昵称：</label>
-			    <input type="input" class="form-control" v-model="user.nickname" placeholder="请输入昵称">
+			    <label class="col-sm-2 control-label">昵称：</label>
+			  	<div class="col-sm-3">
+			  	  <input type="input" class="form-control" v-model="user.nickname" placeholder="请输入昵称">
+			  	</div>
 			  </div>
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">密码：</label>
-			    <input type="input" class="form-control" v-model="user.password" placeholder="请输入密码">
+			    <label for="exampleInputEmail1" class="col-sm-2 control-label">密码：</label>
+			  	  <div class="col-sm-3">
+			  	  	<input type="input" class="form-control" v-model="user.password" placeholder="请输入密码">
+			  	  </div>		
 			  </div>
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">电话号码：</label>
-			    <input type="input" class="form-control" v-model="user.phone" disabled="disabled" placeholder="修改电话号码的接口未实现">
+			    <label for="exampleInputEmail1" class="col-sm-2 control-label">电话号码：</label>
+			  	  <div class="col-sm-3">
+			  	  	<input type="input" class="form-control" v-model="user.phone" disabled="disabled" placeholder="修改电话号码的接口未实现">
+			  	  </div>		
 			  </div>
-			  <div class="form-group detail_form_group" style="width: 140px;">
-			    <label for="exampleInputEmail1" class="my_label">性别：</label>
-				<select v-model="user.sex">
+			  <div class="form-group detail_form_group" style="width: 140px;position: relative;left: 85px;">
+			    <label class=" control-label">性别：</label>
+				<select v-model="user.sex" style="position: relative;left: 30px;">
 				    <option disabled value="">请选择</option>
 				    <option value="1">男</option>
 				    <option value="0">女</option>
-				</select>
+				</select>			  
 			  </div>
-			  <button type="submit" class="btn btn-success btn-lg submit_button" @click="edit">编辑</button>
+			  <button class="btn btn-success btn-lg submit_button" @click="edit" style="margin-top: 20px;">增加</button>
 			</form>
 		</div>
 	</div>
