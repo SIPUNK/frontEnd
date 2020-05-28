@@ -7,6 +7,8 @@ import Community from '@/views/community/community.vue'
 import News from '@/views/news/news.vue'
 import User from '@/views/user/user.vue'
 import newsDetail from '@/views/news/newsDetail.vue'
+import PostDetail from '@/views/community/PostDetail.vue'
+import Posting from '@/views/community/Posting.vue'
 
 Vue.use(VueRouter)
 
@@ -40,12 +42,23 @@ const routes = [
 		path: '/news/detail',
 		name: 'newsDetail',
 		component: newsDetail
+	},
+	{
+		path: '/community/PostDetail',
+		name: 'PostDetail',
+		component: PostDetail
+	},
+	{
+		path: '/community/Posting',
+		name: 'Posting',
+		component: Posting
 	}
 ]
 
 const router = new VueRouter({
 	mode: 'history',
 	base: process.env.BASE_URL,
+	// base: '/foreground1/dist',
 	routes
 })
 

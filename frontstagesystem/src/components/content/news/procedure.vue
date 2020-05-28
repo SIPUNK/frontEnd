@@ -43,8 +43,6 @@
 		border: 1px solid #000;
 		width: 450px;
 		height: 660px;
-		left: 20px;
-		top: 16px;
 		z-index: 5;
 		border-color: rgb(187, 187, 187);
 		border-width: 1px;
@@ -56,7 +54,7 @@
 		font-style: normal;
 		opacity: 1;
 		position: relative;
-		top: 50px;
+		left: 75px;
 	}
 
 	.procedure-p2 {

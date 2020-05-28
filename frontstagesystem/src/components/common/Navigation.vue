@@ -7,13 +7,13 @@
 	<!-- <el-tabs type="border-card" v-for="(item,index) in first">
 	  <el-tab-pane label="{{item.name}}"></el-tab-pane>
 	</el-tabs> -->
-	<nav>
-		<ul>
-			<li>
-				<router-link to="/home">主页</router-link>
-				<router-link to="/news">资讯</router-link>
-				<router-link to="/community">社区</router-link>
-				<router-link to="/user">个人</router-link>
+	<nav class="Navigation-nav">
+		<ul class="Navigation-ul">
+			<li class="Navigation-li">
+				<router-link to="/home" class="Navigation-a">主页</router-link>
+				<router-link to="/news" class="Navigation-a">资讯</router-link>
+				<router-link to="/community" class="Navigation-a">社区</router-link>
+				<router-link to="/user" class="Navigation-a">个人</router-link>
 			</li>
 		</ul>
 	</nav>
@@ -31,19 +31,19 @@
 </script>
 
 <style>
-	ul {
+	.Navigation-ul {
 		list-style-type: none;
 		/*消除黑点*/
 		text-align: center;
 		margin: 0;
 	}
 
-	li {
+	.Navigation-li {
 		display: inline-block;
 		margin: 0 10px;
 	}
 
-	a {
+	.Navigation-a {
 		color: #fff;
 		/*设置字体颜色*/
 		text-decoration: none;
@@ -52,7 +52,7 @@
 		border-radius: 5px;
 	}
 
-	nav {
+	.Navigation-nav {
 		background: #68b9d6;
 		padding: 30px 0;
 		/* width: 1000px; */

@@ -27,7 +27,8 @@
 			theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
 		}
 	}
-	console.log(theRequest.name)
+	console.log(theRequest.school)
+	// console.log(this.$route.query.school)
 
 	export default {
 		name: 'detailFile',

@@ -2,20 +2,26 @@
 	<div id="count">
 		<div id="text">
 			<p id="text1">考研倒计时,</p>
-			<p id="days">&emsp;{{days}}天！</p>
+			<br><br><br></br>
 			<p id="motto">{{motto}}</p>
 		</div>
 	</div>
 </template>
 
 <script>
+	import timeDown from '@/components/common/timeDown.vue'
+	
 	export default {
 		name: 'homeCount',
 		data() {
 			return {
-				days: 100,
-				motto: '人的一切痛苦，本质上都是对自己无能的狂怒！————王小波'
+				// days: 100,
+				motto: '人的一切痛苦，本质上都是对自己无能的狂怒！————王小波',
+				endTime : '2020-12-19 8:30:00'
 			}
+		},
+		components:{
+			timeDown
 		}
 	}
 </script>
