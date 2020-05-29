@@ -30,11 +30,6 @@
 						path:"/news/index"
 					},
 					{
-						name:"院校资讯",
-						img:"left",
-						path: '/news/college'
-					},
-					{
 						name:"轮播图",
 						img:"left",
 						path: '/news/carousel'
@@ -68,11 +63,6 @@
 						name:"评论管理",
 						img:"left",
 						path: '/community/comment'
-					},
-					{
-						name:"系统设置",
-						img:"glyphicon glyphicon-cog",
-						path: '/settings'
 					}
 				]
 			}

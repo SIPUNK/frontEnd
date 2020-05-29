@@ -5,7 +5,6 @@ import Login from '../views/login/login'
 
 import NewsIndex from '../views/news/Index/index'
 import Newsadd from '../views/news/Index/newsAdd.vue'
-import NewsCollege from '../views/news/College/collegeNews'
 import NewsCarousel from '../views/news/Carousel/carousel'
 import NewsCarouselAdd from '../views/news/Carousel/carouselAdd.vue'
 
@@ -20,8 +19,6 @@ import PostAdd from '../views/community/postAdd.vue'
 import PostEdit from '../views/community/postEdit.vue'
 import Comment from '../views/community/comment.vue'
 
-
-import Settings from '../views/settings/settings'
 
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
@@ -48,10 +45,6 @@ const routes = [
 	{
 		path: '/news/index/add',
 		component: Newsadd
-	},
-	{
-		path: '/news/college',
-		component: NewsCollege
 	},
 	{
 		path: '/news/carousel',
@@ -96,10 +89,6 @@ const routes = [
 	{
 		path: '/community/comment',
 		component: Comment
-	},
-	{
-		path: '/settings',
-		component: Settings
 	}
 ]
 
