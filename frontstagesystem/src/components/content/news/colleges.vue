@@ -3,10 +3,10 @@
 		<p class="colleges-title">院校资讯</p>
 		<a class="colleges-more" href="#">更多</a>
 		<div>
-			<router-link :to="collegesList[0].clickUrl" class="colleges-link">
+			<li @click="getDetail(collegesList[0].name)" class="colleges-link">
 				<img :src="collegesList[0].image" alt="0" class="colleges-img">
 				<p class="colleges-name">福州大学</p>
-			</router-link>
+			</li>
 			<router-link :to="collegesList[1].clickUrl" class="colleges-link">
 				<img :src="collegesList[1].image" alt="1" class="colleges-img">
 				<p class="colleges-name">福州大学</p>
@@ -21,7 +21,6 @@
 
 <script>
 	import fzuLogo from 'assets/img/news/collegeLogo/fzuLogo.jpg'
-
 	export default {
 		name: 'colleges',
 		data() {
@@ -39,12 +38,20 @@
 				]
 			}
 		},
-		created() {
-			for (let i = 0; i < this.collegesList.length; i++) {
-				this.collegesList[i].clickUrl = '/news/detail/' + this.collegesList[i].name
+		methods: {
+			getDetail(school) {
+				//   直接调用$router.push 实现携带参数的跳转
+				this.$router.push({
+					path: `/news/detail/${school}`,
+				})
+				}
+			},
+			created() {
+				for (let i = 0; i < this.collegesList.length; i++) {
+					this.collegesList[i].clickUrl = '/news/detail/' + this.collegesList[i].name
+				}
 			}
 		}
-	}
 </script>
 
 <style>
