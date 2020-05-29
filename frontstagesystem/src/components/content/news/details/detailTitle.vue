@@ -10,16 +10,6 @@
 </template>
 
 <script>
-	let url = window.location.search;
-	let theRequest = new Object();
-	if (url.indexOf("?") != -1) {
-		let str = url.substr(1);
-		let strs = str.split("&");
-		for (let i = 0; i < strs.length; i++) {
-			theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-		}
-	}
-	console.log(theRequest.school)
 
 
 	// let imgUrl = 'assets/img/news/collegeLogo/' + theRequest.school + 'Logo.jpg'
@@ -28,8 +18,8 @@
 		name: 'detailTitle',
 		data() {
 			return {
-				image: require('assets/img/news/collegeLogo/' + theRequest.school + 'Logo.jpg'),
-				name: theRequest.school,
+				image: require('assets/img/news/collegeLogo/' + this.$route.params.school + 'Logo.jpg'),
+				name: this.$route.params.school,
 				label: [
 					'双一流', '211'
 				]

@@ -5,7 +5,7 @@ import store from './store'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-
+import axios from 'axios'
 Vue.use(VueResource)
 Vue.use(ElementUI)
 
@@ -16,3 +16,4 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+Vue.prototype.$axios=axios

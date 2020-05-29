@@ -39,7 +39,7 @@ const routes = [
 		component: User
 	},
 	{
-		path: '/news/detail',
+		path: '/news/detail/:school',
 		name: 'newsDetail',
 		component: newsDetail
 	},
@@ -56,7 +56,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-	mode: 'history',
+	// mode: 'history',
 	base: process.env.BASE_URL,
 	// base: '/foreground1/dist',
 	routes
