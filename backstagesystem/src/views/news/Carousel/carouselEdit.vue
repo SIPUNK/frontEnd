@@ -1,7 +1,7 @@
 <template>
 	<div id="addCarousel" class="container">
 		<div class="col-sm-10 col-sm-offset-1 add_panel">
-			<h3>添加轮播图</h3>
+			<h3>编辑轮播图</h3>
 			<button class="btn btn-success return_button" @click="returnTo">
 				返回
 			</button>
@@ -47,7 +47,7 @@
 			}
 		},
 		mounted() {
-			document.title = "添加轮播图";
+			document.title = "编辑轮播图";
 			/*页面挂载获取保存的cookie值*/
 			let uname = getCookie('username')
 			/*如果cookie不存在，则跳转到登录页*/

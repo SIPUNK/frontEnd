@@ -7,6 +7,7 @@ import NewsIndex from '../views/news/Index/index'
 import Newsadd from '../views/news/Index/newsAdd.vue'
 import NewsCarousel from '../views/news/Carousel/carousel'
 import NewsCarouselAdd from '../views/news/Carousel/carouselAdd.vue'
+import NewsCarouselEdit from '../views/news/Carousel/carouselEdit.vue'
 
 import Users from '../views/users/user'
 import UserAdd from '../views/users/userAdd.vue'
@@ -53,6 +54,10 @@ const routes = [
 	{
 		path: '/news/carousel/add',
 		component: NewsCarouselAdd
+	},
+	{
+		path: '/news/carousel/edit/:id',
+		component: NewsCarouselEdit
 	},
 	{
 		path: '/users',
