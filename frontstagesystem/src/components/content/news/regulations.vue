@@ -3,9 +3,9 @@
 		<p class="title">2020全国硕士学位研究生招生信息公布院校汇总</p>
 		<ul class="regulations-ul">
 			<li v-for="(value,index) in contentList" class="regulations-li">
-				<a :href="value.href" class="regulations-link">
+				<router-link :to="value.href" class="regulations-link">
 					{{value.content}}
-				</a>
+				</router-link>
 			</li>
 		</ul>
 
@@ -41,7 +41,7 @@
 		data() {
 			return {
 				contentList: [{
-						href: '#',
+						href: '/news/detail/fzu/1',
 						content: '2020福州大学招生简章',
 					},
 					{
