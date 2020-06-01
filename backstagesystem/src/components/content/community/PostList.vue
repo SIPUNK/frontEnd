@@ -1,23 +1,17 @@
 <template>
 	<div id="userIndex">
-		<!-- 用户查找组件 -->
-		<div id="postFind" v-show="false" class="newsDiv">
-			<h4 class="find_title">用户搜索</h4>
+		<!-- 帖子查找组件 -->
+		<div id="postFind" class="newsDiv">
+			<h4 class="find_title">帖子搜索</h4>
 			<div class="form-group find_group">
-			  <label>按用户ID查找：</label>
-			  <input type="input" class="form-control find_input" v-model="findId" id="findInput" placeholder="请输入用户ID">
+			  <label>按帖子标题查找：</label>
+			  <input type="input" class="form-control find_input" v-model="findId" id="findInput" placeholder="请输入帖子标题">
 			  <button class="btn btn-success find_button" @click="findById">查找</button>
 			  <button class="btn btn-success find_button" @click="clear">清空所有搜索条件</button>
 			  <h4 class="nofind" v-model="idNoFind">{{ idNoFind }}</h4>
 			</div>
-			<div class="form-group find_group">
-			  <label>按用户名查找：</label>
-			  <input type="input" class="form-control find_input" v-model="findUsername" id="findInput" placeholder="请输入用户名">
-			  <button class="btn btn-success find_button" @click="findByUsername">查找</button>
-			  <h4 class="nofind" v-model="usernameNoFind">{{ usernameNoFind }}</h4>
-			</div>
 		</div>	
-		<!-- 用户列表组件 -->
+		<!-- 帖子列表组件 -->
 		<div class="newsDiv">
 			<div id="divHeader">
 				<span class="myspan">
