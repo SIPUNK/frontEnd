@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<h3>欢迎 {{name}}</h3>
-		<a href="/" @click="quit" id="quit">注销登录</a>
+<!-- 		<h3>欢迎 {{name}}</h3>
+		<a href="/" @click="quit" id="quit">注销登录</a> -->
 		<div>
 			<homeCount></homeCount>
 			<timeDown :endTime='endTime' id="days"></timeDown>
@@ -54,9 +54,6 @@
 	}
 </script>
 <style>
-	#quit {
-		color: #FF0000;
-	}
 
 	#days {
 		position: relative;
