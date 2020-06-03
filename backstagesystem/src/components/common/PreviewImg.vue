@@ -10,23 +10,34 @@
 
 <script>
 	export default{
-		name:'homeIndex',
+		name:'previewImg',
+		created(){
+			console.log(this.Url);
+			
+			this.url = this.Url;
+			console.log(this.url);
+		},
 		mounted() {
 			this.yulan();//预览图片
-			
+		},
+		props:{
+			Url:{
+				type:String
+			}
 		},
 		data() {
 			return{
 			    imageSave:"",//图片路径
 			    uploadDate:"",//上传时间		 
+				url:""
 			}		
 		},
 		methods:{
 			//图片库模拟点击input file
-			monidianji:function(){
+			monidianji(){
 			   document.getElementById('saveImage').click()
 			},         
-			yulan:function(){
+			yulan(){
 			    document.getElementById('saveImage').onchange = function () {
 			    var imgFile = this.files[0];
 			    var fr = new FileReader();
@@ -35,7 +46,8 @@
 			    };
 			    fr.readAsDataURL(imgFile);
 			    }
-			},            
+				
+			}            
 		}
 		
 	}

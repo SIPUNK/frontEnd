@@ -10,7 +10,7 @@
 			  <div class="form-group detail_form_group">
 			    <label class="col-sm-2 control-label">用户名：</label>
 			    <div class="col-sm-3">
-			     <input type="input" class="form-control" v-model="user.username" placeholder="请输入用户名">
+			     <input type="input" class="form-control" v-model="user.username" disabled="disabled" placeholder="请输入用户名">
 			    </div>
 			  </div>
 			  <div class="form-group detail_form_group">
@@ -39,7 +39,7 @@
 				    <option value="0">女</option>
 				</select>			  
 			  </div>
-			  <button class="btn btn-success btn-lg submit_button" @click="edit" style="margin-top: 20px;">增加</button>
+			  <button class="btn btn-success btn-lg submit_button" @click="edit" style="margin-top: 20px;">修改</button>
 			</form>
 		</div>
 	</div>

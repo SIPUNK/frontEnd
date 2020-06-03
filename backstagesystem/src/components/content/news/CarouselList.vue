@@ -26,14 +26,14 @@
 					</thead>
 					<tbody>
 						<tr v-for="(item,index) in dataCurrent">
-						  <td>{{ item.user_id }}</td>
-						  <td>{{ item.username }}</td>
-						  <td>{{ item.nickname }}</td>
-						  <td>{{ item.password }}</td>
-						  <td>
-						  	<a @click="edit(item.user_id)">编辑  </a>
-						  	<a class="delete">删除</a>
-						  </td>
+							<td>{{ item.title }}</td>
+							<td><img :src=item.url style="width: 100%;height: 100%;"></td>
+							<td>{{ item.content }}</td>
+							<td>{{ item.create_time }}</td>
+							<td>
+								<a @click="edit(item.carousel_id)">编辑  </a>
+								<a class="delete" @click="deleteCarousel(item.carousel_id)">删除</a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -54,7 +54,7 @@
 	import { getUserdata } from "../../../network/user.js"
 	
 	export default{
-		name:'userList',
+		name:'carouselList',
 		inject:["reload"],
 		data:function(){
 			return{
@@ -98,47 +98,24 @@
 					this.reload();
 				})
 			},
-			//编辑用户
+			//编辑轮播图
 			edit(id){
-				this.$router.push('/users/edit/'+id);
+				this.$router.push('/news/carousel/edit/'+id);
 			},
-			//获取封禁状态
-			getBan(isBan){
-				if(isBan == 0)
-				{
-					return "正常"
-				}
-				else if(isBan == 1)
-				{
-					return "封禁";
-				}
-				else
-				{
-					return "";
-				}
+			//删除轮播图
+			deleteCarousel(id){
+				let data = {carousel_id:id};
+				this.$http.post('http://118.178.184.69:4396/carousel/deleteCarousel',data).then(res =>{
+					this.reload();
+				})
 			},
-			//获取用户性别
-			getSex(sex){
-				if(sex == 0)
-				{
-					return "女"
-				}
-				else if(sex == 1)
-				{
-					return "男";
-				}
-				else
-				{
-					return "";
-				}
-			},
-			//获取用户信息
+			//获取轮播图信息
 			getAll(){
-				this.$http.post('http://118.178.184.69:4396/User/findall').then(res =>{
+				this.$http.post('http://118.178.184.69:4396/carousel/getAllCarousels').then(res =>{
 					this.dataTotal = res.data;
 					for(let i=0;i<this.Page.pageSize;i++)
 					{
-						if(this.dataTotal[i] != "")
+						if(this.dataTotal[i] != undefined)
 							this.dataCurrent.push(this.dataTotal[i]);
 					}
 					this.Page.pageNum = Math.floor(this.dataTotal.length / this.Page.pageSize);
@@ -151,68 +128,6 @@
 						this.Page.pageShow = this.Page.pageNum;
 					}
 				});
-			},
-			//按用户ID查找用户
-			findById(){
-				if(this.findId != "")
-				{
-					this.idNoFind = "";
-					this.usernameNoFind = "";
-					let data = {"user_id":parseInt(this.findId)} 
-					this.$http.post('http://118.178.184.69:4396/User/findbyid',data).then((res)=>{
-							if(res.data != "")
-							{
-								this.dataCurrent = [];
-								this.dataCurrent[0] = res.data;
-								this.isFind = true;
-							}
-							else
-							{
-								this.idNoFind = "该ID不存在!";
-							}
-					})
-				}
-			},
-			//按用户名查找用户
-			findByUsername(){
-				if(this.findUsername != "")
-				{
-					this.idNoFind = "";
-					this.usernameNoFind = "";
-					let data1 = {"username":this.findUsername} 
-					this.$http.post('http://118.178.184.69:4396/User/findbyname',data1).then(res =>{
-						if(res.data != "")
-						{
-							this.dataCurrent = [];
-							this.dataCurrent[0] = res.data;
-							this.isFind = true;
-						}
-						else
-						{
-							this.usernameNoFind = "该用户名不存在!";
-						}
-					})
-				}
-			},
-			//清空搜索条件
-			clear(){
-				if(this.findId != "" || this.findUsername != "")
-				{
-					this.findId = "";
-					this.findUsername = "";
-					this.idNoFind = "";
-					this.usernameNoFind = "";
-					this.isFind = false;
-					this.dataCurrent = [];
-					let index = this.Page.currentIndex;
-					for(let i=0;i<this.Page.pageSize;i++)
-					{
-						if(index < this.dataTotal.length)
-						{
-							this.dataCurrent.push(this.dataTotal[index++]);
-						}
-					}	
-				}
 			},
 			//首页
 			first(page){

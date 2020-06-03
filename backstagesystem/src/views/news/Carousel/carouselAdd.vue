@@ -9,24 +9,29 @@
 			  <div class="form-group detail_form_group">
 			    <label for="firstname" class="col-sm-2 control-label">轮播图名称：</label>
 			    <div class="col-sm-3">
-			      <input type="input" class="form-control" v-model="user.username" placeholder="请输入轮播图名称">
+			      <input type="input" class="form-control" v-model="carousel.title" placeholder="请输入轮播图名称">
 			    </div>
 			  </div>
 			  <div class="form-group detail_form_group">
 			    <label for="firstname" class="col-sm-2 control-label">轮播图素材：</label>
 			    <div class="col-sm-3">
-			      <preview-img></preview-img>
+			      <div id="myPhoto">
+			          <div class="viewPhoto" >
+			              <img src="../../../assets/img/uploadImg.jpg" alt="" id="portrait" style="width: 200px;height: 200px" @click="monidianji"/>
+			          </div>
+			          <p>提示：请选择本地图片上传，支持各种图片格式</p>
+			          <input type="file" id="saveImage" name="myphoto" style="display:none;">
+			      </div>   	
 			    </div>
 			  </div>
 			  <div class="form-group detail_form_group">
 			    <label for="lastname" class="col-sm-2 control-label">说明：</label>
 			    <div class="col-sm-3">
-			      <input type="input" class="form-control" v-model="user.password" placeholder="请输入说明">
+			      <input type="input" class="form-control" v-model="carousel.content" placeholder="请输入说明">
 			    </div>
 			  </div>
-			  <button class="btn btn-success btn-lg submit_button" @click="add">添加</button>
 			</form>
-
+			<button class="btn btn-success btn-lg submit_button" @click="add">添加</button>
 		</div>
 	</div>
 </template>
@@ -34,15 +39,15 @@
 <script>
 	
 	import { getCookie } from "../../../assets/js/cookie.js"
-	import PreviewImg from "../../../components/common/PreviewImg.vue"
 	
 	export default{
-		name:"userAdd",
+		name:"carouselAdd",
 		data:function(){
 			return{
-				user:{
-					username:"",
-					password:""
+				carousel:{
+					title:"",
+					content:"",
+					url:""
 				}
 			}
 		},
@@ -54,20 +59,34 @@
 			if(uname == ""){
 			    this.$router.push('/login')
 			}     
+			this.yulan();
 		},
 		methods:{
 			returnTo (){
 				this.$router.push("/news/carousel");
 			},
 			add (){
-				this.$http.post('http://118.178.184.69:4396/User/regist',this.user).then((res)=>{
-					alert("用户添加成功！返回用户管理页面以查看！");
+				this.carousel.url = document.getElementById('portrait').src;
+				this.$http.post('http://118.178.184.69:4396/carousel/addCarousel',this.carousel).then((res)=>{
+					alert("轮播图添加成功！返回轮播图管理页面以查看！");
 					this.$router.push("/news/carousel");
 				})
-			}
-		},
-		components:{
-			PreviewImg
+			},
+			//图片库模拟点击input file
+			monidianji(){
+			   document.getElementById('saveImage').click()
+			},         
+			yulan(){
+			    document.getElementById('saveImage').onchange = function () {
+			    var imgFile = this.files[0];
+			    var fr = new FileReader();
+			    fr.onload = function () {
+					document.getElementById('portrait').src = fr.result;
+			    };
+			    fr.readAsDataURL(imgFile);
+			    }
+				
+			}            
 		}
 	}
 </script>

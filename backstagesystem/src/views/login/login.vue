@@ -71,7 +71,7 @@
 					     this.$http.post('http://118.178.184.69:4396/User/findbyname',data).then((res)=>{
 					     	this.$store.commit('login',res.data);
 					     })
-					     this.$router.push('/home');
+					     this.$router.push('/news/index');
 					  }
 					  else
 					  {
