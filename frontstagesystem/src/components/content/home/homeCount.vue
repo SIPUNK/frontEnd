@@ -30,6 +30,7 @@
 	#count{
 		background: url(~assets/img/home/background.png),no-repeat,left,top;
 		height: 540px;
+		margin-top: 25px;
 	}
 	#text1,#days,#motto {
 		margin: 0;

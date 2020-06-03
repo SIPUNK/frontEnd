@@ -1,6 +1,7 @@
 <template>
   <div id="app">
 		<logo></logo>
+		<signIn></signIn>
 		<div v-show="showNav">
 			<Navigation></Navigation>
 		</div>
@@ -19,6 +20,7 @@
 <script>
 	import Navigation from '@/components/common/Navigation.vue'
 	import logo from '@/components/common/logo.vue'
+	import signIn from '@/components/common/signIn.vue'
 	import {
 		setCookie,
 		getCookie
@@ -38,7 +40,8 @@
 		},
 		components: {
 			Navigation,
-			logo
+			logo,
+			signIn
 		},
 		methods: {
 			

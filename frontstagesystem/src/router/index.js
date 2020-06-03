@@ -10,7 +10,7 @@ import newsDetail from '@/views/news/newsDetail.vue'
 import PostDetail from '@/views/community/PostDetail.vue'
 import Posting from '@/views/community/Posting.vue'
 import articleDetail from '@/views/news/articleDetail.vue'
-
+import carouselDetail from '@/views/news/carouselDetail.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -48,6 +48,11 @@ const routes = [
 		path: '/news/detail/:school/:id',
 		name: 'articleDetail',
 		component: articleDetail
+	},
+	{
+		path: '/news/:id',
+		name: 'carouselDetail',
+		component: carouselDetail
 	},
 	{
 		path: '/community/PostDetail',
