@@ -1,54 +1,68 @@
 <template>
 	<div class="carousel-wrap" id="carousel">
 		<transition-group tag="ul" class='slide-ul' name="list">
-			<li v-for="(list,index) in slideList" :key="index" v-show="index===currentIndex" @mouseenter="stop" @mouseleave="go">
+			<li v-for="(list,index) in carouselList" :key="index" v-show="index===currentIndex" @mouseenter="stop" @mouseleave="go">
 				<a :href="list.clickUrl">
-					<img :src="list.image" :alt="list.desc" id="carousel-img">
+					<img :src="list.url" alt="" id="carousel-img">
 				</a>
 			</li>
 		</transition-group>
 		<div class="carousel-items">
-			<span v-for="(item,index) in slideList.length" :class="{'active':index===currentIndex}" @mouseover="change(index)"></span>
+			<span v-for="(item,index) in carouselList.length" :class="{'active':index===currentIndex}" @mouseover="change(index)"></span>
 		</div>
 	</div>
 </template>
 
 <script>
 	import Vue from 'vue'
-	import carousel1 from 'assets/img/news/carousel1.png'
-	import carousel2 from 'assets/img/news/carousel2.png'
-	import carousel3 from 'assets/img/news/carousel3.png'
+	// import carousel1 from 'assets/img/news/carousel1.png'
+	// import carousel2 from 'assets/img/news/carousel2.png'
+	// import carousel3 from 'assets/img/news/carousel3.png'
 
 	export default {
 		name: 'carousel',
 		data() {
 			return {
-				slideList: [{
-						"clickUrl": "#",
-						"desc": "nhwc",
-						"image": carousel1
-					},
-					{
-						"clickUrl": "#",
-						"desc": "hxrj",
-						"image": carousel2
-					},
-					{
-						"clickUrl": "#",
-						"desc": "rsdh",
-						"image": carousel3
-					}
-				],
+				// slideList: [{
+				// 		"clickUrl": "#",
+				// 		"desc": "nhwc",
+				// 		"image": carousel1
+				// 	},
+				// 	{
+				// 		"clickUrl": "#",
+				// 		"desc": "hxrj",
+				// 		"image": carousel2
+				// 	},
+				// 	{
+				// 		"clickUrl": "#",
+				// 		"desc": "rsdh",
+				// 		"image": carousel3
+				// 	}
+				// ],
+				carouselList:[],
 				currentIndex: 0,
 				timer: ''
 			}
 
 		},
+		mounted() {
+
+			this.$http.post('http://118.178.184.69:4396/carousel/getAllCarousels', ).then((res) => {
+				for (let i = 0; i < res.data.length; i++) {
+					this.carouselList.push(res.data[i])
+					this.$set(this.carouselList[i], 'clickUrl', '#/news/' + this.carouselList[i].carousel_id)
+				}
+				console.log(this.carouselList)
+			},
+			(error) => {
+				
+			})
+		},
 		methods: {
 			go() {
 				this.timer = setInterval(() => {
 					this.autoPlay()
-				}, 4000)
+				}, 2000)
 			},
 			stop() {
 				clearInterval(this.timer)
@@ -59,7 +73,7 @@
 			},
 			autoPlay() {
 				this.currentIndex++
-				if (this.currentIndex > this.slideList.length - 1) {
+				if (this.currentIndex > this.carouselList.length - 1) {
 					this.currentIndex = 0
 				}
 			}
@@ -68,10 +82,11 @@
 			this.$nextTick(() => {
 				this.timer = setInterval(() => {
 					this.autoPlay()
-				}, 8000)
+				}, 2000)
 			})
 		}
 	}
+	
 </script>
 
 <style>
