@@ -169,7 +169,7 @@
 					this.dataTotal = res.data;
 					for(let i=0;i<this.Page.pageSize;i++)
 					{
-						if(this.dataTotal[i] != "")
+						if(this.dataTotal[i] != undefined)
 							this.dataCurrent.push(this.dataTotal[i]);
 					}
 					this.Page.pageNum = Math.floor(this.dataTotal.length / this.Page.pageSize);

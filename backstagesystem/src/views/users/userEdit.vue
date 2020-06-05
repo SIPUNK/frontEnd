@@ -25,12 +25,6 @@
 			  	  	<input type="input" class="form-control" v-model="user.password" placeholder="请输入密码">
 			  	  </div>		
 			  </div>
-			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="col-sm-2 control-label">电话号码：</label>
-			  	  <div class="col-sm-3">
-			  	  	<input type="input" class="form-control" v-model="user.phone" disabled="disabled" placeholder="修改电话号码的接口未实现">
-			  	  </div>		
-			  </div>
 			  <div class="form-group detail_form_group" style="width: 140px;position: relative;left: 85px;">
 			    <label class=" control-label">性别：</label>
 				<select v-model="user.sex" style="position: relative;left: 30px;">

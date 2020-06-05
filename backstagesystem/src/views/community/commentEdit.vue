@@ -5,30 +5,48 @@
 			<button class="btn btn-success return_button" @click="returnTo">
 				返回
 			</button>
-			<form>
+			<form class="form-horizontal" role="form" style="position: relative;left: 30px;">
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">评论内容：</label>
-			    <input type="input" class="form-control" v-model="postInvitation.invitation_title" disabled="disabled">
+			    <label class="col-sm-2 control-label">评论ID：</label>
+			    <div class="col-sm-3">
+			     <input type="input" class="form-control" v-model="comment[0].comment_id" disabled="disabled">
+			    </div>
 			  </div>
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">评论所属帖子：</label>
-			    <input type="input" class="form-control" v-model="postInvitation.invitation_title" disabled="disabled">
+			    <label class="col-sm-2 control-label">评论内容：</label>
+			  	<div class="col-sm-3">
+			  	  <textarea type="input" class="form-control" v-model="comment[0].content" disabled="disabled"></textarea>
+			  	</div>
 			  </div>
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">评论人ID：</label>
-			    <input type="input" class="form-control" v-model="postInvitation.invitation_title" disabled="disabled">
+			    <label for="exampleInputEmail1" class="col-sm-2 control-label">评论所属帖子：</label>
+			  	  <div class="col-sm-3">
+			  	  	<input type="input" class="form-control" v-model="comment[0].comment_invitation" disabled="disabled">
+			  	  </div>		
 			  </div>
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">评论状态</label>
-			    <input type="input" class="form-control" v-model="postInvitation.plate" disabled="disabled">
+			    <label for="exampleInputEmail1" class="col-sm-2 control-label">评论人ID：</label>
+			  	  <div class="col-sm-3">
+			  	  	<input type="input" class="form-control" v-model="comment[0].comment_user" disabled="disabled">
+			  	  </div>		
 			  </div>
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">评论时间</label>
-			    <input type="input" class="form-control" v-model="postInvitation.plate" disabled="disabled">
+			    <label for="exampleInputEmail1" class="col-sm-2 control-label">评论状态：</label>
+			  	  <div class="col-sm-3">
+			  	  	<input type="input" class="form-control" v-model="comment[0].comment_status" disabled="disabled">
+			  	  </div>		
 			  </div>
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">评论更新时间</label>
-			    <input type="input" class="form-control" v-model="postInvitation.plate" disabled="disabled">
+			    <label for="exampleInputEmail1" class="col-sm-2 control-label">评论时间：</label>
+			  	  <div class="col-sm-3">
+			  	  	<input type="input" class="form-control" v-model="comment[0].create_time" disabled="disabled">
+			  	  </div>		
+			  </div>
+			  <div class="form-group detail_form_group">
+			    <label for="exampleInputEmail1" class="col-sm-2 control-label">评论更新时间：</label>
+			  	  <div class="col-sm-3">
+			  	  	<input type="input" class="form-control" v-model="comment[0].update_time" disabled="disabled">
+			  	  </div>		
 			  </div>
 			</form>
 		</div>
@@ -40,43 +58,36 @@
 	import { getCookie } from "../../assets/js/cookie.js"
 	
 	export default{
-		name:"postEdit",
+		name:"commentEdit",
 		data:function(){
 			return{
-				postInvitation:{
-					post_user:"",
-					invitation_title:"",
-					plate:"",
-					content:""
+				comment:{
+					comment_id:"",
+					content:"",
+					comment_invitation:"",
+					comment_status:"",
+					comment_user:"",
+					create_time:"",
+					update_time:""
 				}
 			}
 		},
 		mounted() {
 			document.title = "查看评论";
-			this.postInvitation.post_user = this.$store.state.user.user_id;
 			/*页面挂载获取保存的cookie值*/
 			let uname = getCookie('username')
 			/*如果cookie不存在，则跳转到登录页*/
 			if(uname == ""){
 			    this.$router.push('/login')
 			}     
-			
-			this.$http.get('http://118.178.184.69:4396/User/findbyid',{params:{
-			user_id:this.$route.params.id  
-			}}).then((res)=>{
-				//console.log(res)
-				this.user = res.data;
+			let data = {"comment_id":parseInt(this.$route.params.id)};
+			this.$http.post('http://118.178.184.69:4396/comment/getcommentbyid',data).then((res)=>{
+				this.comment = res.data;
 			})
 		},
 		methods:{
 			returnTo (){
-				this.$router.push("/community/post");
-			},
-			add (){
-				this.$http.post('http://118.178.184.69:4396/invitation/post',this.postInvitation).then((res)=>{
-					alert("帖子添加成功！返回帖子管理页面以查看！");
-					this.$router.push("/community/post");
-				})
+				this.$router.push("/community/comment");
 			}
 		},
 		components:{

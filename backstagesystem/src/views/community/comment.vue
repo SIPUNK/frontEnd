@@ -13,7 +13,7 @@
 	import {getCookie} from '../../assets/js/cookie.js'
 	
 	export default{
-		name:'commetn',
+		name:'comment',
 		mounted(){
 			document.title = '评论管理'
 		    /*页面挂载获取保存的cookie值*/

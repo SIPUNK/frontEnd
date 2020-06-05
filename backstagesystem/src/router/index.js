@@ -19,6 +19,7 @@ import Post from '../views/community/post.vue'
 import PostAdd from '../views/community/postAdd.vue'
 import PostEdit from '../views/community/postEdit.vue'
 import Comment from '../views/community/comment.vue'
+import CommentEdit from '../views/community/commentEdit.vue'
 
 
 const originalPush = VueRouter.prototype.push
@@ -88,13 +89,17 @@ const routes = [
 		component: PostAdd
 	},
 	{
-		path: '/community/post/edit/:invitation_id',
+		path: '/community/post/edit/:id',
 		component: PostEdit
 	},
 	{
 		path: '/community/comment',
 		component: Comment
-	}
+	},
+	{
+		path: '/community/comment/edit/:id',
+		component: CommentEdit
+	},
 ]
 
 const router = new VueRouter({

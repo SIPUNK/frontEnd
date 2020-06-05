@@ -12,8 +12,8 @@
 			</div>
 			<div class="form-group find_group">
 			  <label>查找某个帖子的评论：</label>
-			  <input type="input" class="form-control find_input" v-model="findUsername" id="findInput" placeholder="请输入帖子ID">
-			  <button class="btn btn-success find_button" @click="findByUsername">查找</button>
+			  <input type="input" class="form-control find_input" v-model="findInvitation" id="findInput" placeholder="请输入帖子ID">
+			  <button class="btn btn-success find_button" @click="findByInvitation">查找</button>
 			  <h4 class="nofind" v-model="usernameNoFind">{{ usernameNoFind }}</h4>
 			</div>
 		</div>	
@@ -43,18 +43,18 @@
 					</thead>
 					<tbody>
 						<tr v-for="(item,index) in dataCurrent">
-						  <td>{{ item.invitation_id }}</td>
-						  <td>{{ item.invitation_title }}</td>
+						  <td>{{ item.comment_id }}</td>
 						  <td>{{ item.content }}</td>
-						  <td>{{ item.scan_number }}</td>
-						  <td>{{ getStatus(item.invitation_status) }}</td>
+						  <td>{{ item.comment_invitation }}</td>
+						  <td>{{ item.comment_user }}</td>
+						  <td>{{ getStatus(item.comment_status) }}</td>
 						  <td>{{ item.create_time }}</td>
 						  <td>{{ item.update_time }}</td>
 						  <td>
-						  	<a @click="edit(item.invitation_id)">详情  </a>
-							<a v-show="!item.invitation_status" @click="changeBan(item.invitation_status,item.invitation_id)">隐藏   </a>
-							<a v-show="item.invitation_status" @click="changeBan(item.invitation_status,item.invitation_id)">显示   </a>
-						  	<a>删除</a>
+						  	<a @click="edit(item.comment_id)">详情  </a>
+							<a v-show="!item.comment_status" @click="changeBan(item.comment_status,item.comment_id)">隐藏   </a>
+							<a v-show="item.comment_status" @click="changeBan(item.comment_status,item.comment_id)">显示   </a>
+						  	<a @click="deleteComment(item.comment_id)">删除</a>
 						  </td>
 						</tr>
 					</tbody>
@@ -76,15 +76,16 @@
 	import { getUserdata } from "../../../network/user.js"
 	
 	export default{
-		name:'postList',
+		name:'commentList',
 		inject:["reload"],
 		data:function(){
 			return{
 				dataCurrent:[],
 				dataTotal:[],
+				temp:[],
 				checkList:[],
 				findId:"",
-				findUsername:"",
+				findInvitation:"",
 				isCheckedAll: false,
 				isFind: false,
 				usernameNoFind:"",
@@ -113,10 +114,20 @@
 		},
 		methods:{
 			//改变封禁状态
-			changeBan(status,invitation_id){
+			changeBan(status,comment_id){
 				status==0?status=1:status=0;
-				let data = {date:status,invitation_id:invitation_id};
-				this.$http.post("http://118.178.184.69:4396/invitation/changestatus",data).then(res =>{
+				let data = {date:status,comment_id:comment_id};
+				this.$http.post("http://118.178.184.69:4396/comment/changestatus",data).then(res =>{
+					this.reload();
+				})
+			},
+			edit(id){
+				this.$router.push('/community/comment/edit/'+id);
+			},
+			//删除评论
+			deleteComment(id){
+				let data = {comment_id:id};
+				this.$http.post('http://118.178.184.69:4396/comment/deletecomment',data).then(res =>{
 					this.reload();
 				})
 			},
@@ -135,11 +146,11 @@
 					return "";
 				}
 			},
-			//获取帖子信息
+			//获取所有评论信息
 			getAll(){
-				this.$http.post('http://118.178.184.69:4396/invitation/getinvitation').then(res =>{
+				this.$http.post('http://118.178.184.69:4396/comment/getallcomment').then(res =>{
 					this.dataTotal = res.data;
-					console.log(res.data);
+					//console.log(res.data);
 					
 					for(let i=0;i<this.Page.pageSize;i++)
 					{
@@ -161,45 +172,45 @@
 			findById(){
 				if(this.findId != "")
 				{
-					this.$http.post('http://118.178.184.69:4396/User/findbyid',this.findId).then((res)=>{
+					let data = {comment_user:parseInt(this.findId)};
+					this.$http.post('http://118.178.184.69:4396/comment/getcommentbyuser',data).then((res)=>{
 							if(res.data != "")
 							{
-								this.dataCurrent = [];
-								this.dataCurrent[0] = res.data;
+								this.dataCurrent = res.data;
 								this.isFind = true;
 							}
 							else
 							{
-								this.idNoFind = "该ID不存在!";
+								this.idNoFind = "该用户不存在或者TA没有评论!";
 							}
 					})
 				}
 			},
-			//按用户名查找用户
-			findByUsername(){
-				if(this.findUsername != "")
+			//按帖子查找评论
+			findByInvitation(){
+				if(this.findInvitation != "")
 				{
-					this.$http.post('http://118.178.184.69:4396/User/findbyname',this.findUsername).then((res)=>{
+					let data = {invitation_id:parseInt(this.findInvitation)};
+					this.$http.post('http://118.178.184.69:4396/comment/getinvitationcomment',data).then((res)=>{
 						if(res.data != "")
 						{
-							this.dataCurrent = [];
-							this.dataCurrent[0] = res.data;
+							this.dataCurrent = res.data;
 							this.isFind = true;
 						}
 						else
 						{
-							this.usernameNoFind = "该用户名不存在!";
+							this.usernameNoFind = "该帖子不存在或者该帖子没有评论!";
 						}
 					})
 				}
 			},
 			//清空搜索条件
 			clear(){
-				if(this.findId != "" || this.findUsername != "")
+				if(this.findId != "" || this.findInvitation != "")
 				{
 					console.log("qk")
 					this.findId = "";
-					this.findUsername = "";
+					this.findInvitation = "";
 					this.idNoFind = "";
 					this.usernameNoFind = "";
 					this.isFind = false;

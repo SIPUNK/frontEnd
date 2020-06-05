@@ -41,7 +41,7 @@
 	import { getCookie } from "../../../assets/js/cookie.js"
 	
 	export default{
-		name:"userEdit",
+		name:"carouselEdit",
 		data:function(){
 			return{
 				carousel:{

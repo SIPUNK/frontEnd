@@ -121,6 +121,9 @@
 					this.reload();
 				})
 			},
+			edit(id){
+				this.$router.push('/users/edit/'+id);
+			},
 			//获取封禁状态
 			getStatus(status){
 				if(status == 0)
@@ -140,7 +143,7 @@
 			getAll(){
 				this.$http.post('http://118.178.184.69:4396/invitation/getinvitation').then(res =>{
 					this.dataTotal = res.data;
-					console.log(res.data);
+					//console.log(res.data);
 					
 					for(let i=0;i<this.Page.pageSize;i++)
 					{
