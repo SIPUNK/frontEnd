@@ -2,8 +2,8 @@
 	<div class="colleges">
 		<p class="colleges-title">院校资讯</p>
 		<a class="colleges-more" href="#">更多</a>
-
-			<!-- <li @click="getDetail(collegesList[0].name)" class="colleges-link">
+		<br>
+		<!-- <li @click="getDetail(collegesList[0].name)" class="colleges-link">
 				<img :src="collegesList[0].image" alt="0" class="colleges-img">
 				<p class="colleges-name">福州大学</p>
 			</li>
@@ -15,10 +15,19 @@
 				<img :src="collegesList[1].image" alt="1" class="colleges-img">
 				<p class="colleges-name">福州大学</p>
 			</router-link> -->
-			<router-link v-for="(list,index) in collegesList" :to="list.clickUrl" class="colleges-link">
+		<div v-for="(list,index) in collegesList" class="colleges-div1">
+			<router-link v-if="index<=2" :to="list.clickUrl" class="colleges-link">
 				<img :src="list.image" alt="1" class="colleges-img">
 				<p class="colleges-name">{{list.school_name}}</p>
 			</router-link>
+		</div>
+		<br>
+		<div v-for="(list,index) in collegesList" class="colleges-div2">
+			<router-link v-if="index>2&&index<=5" :to="list.clickUrl" class="colleges-link">
+				<img :src="list.image" alt="1" class="colleges-img">
+				<p class="colleges-name">{{list.school_name}}</p>
+			</router-link>
+		</div>
 
 	</div>
 </template>
@@ -62,8 +71,8 @@
 					for (let i = 0; i < res.data.length; i++) {
 						this.collegesList.push(res.data[i])
 						this.$set(this.collegesList[i], 'clickUrl', '/news/detail/' + this.collegesList[i].school_name)
-						this.$set(this.collegesList[i], 'image', 
-						require('assets/img/news/collegeLogo/' + this.collegesList[i].school_name + 'Logo.jpg'))
+						this.$set(this.collegesList[i], 'image',
+							require('assets/img/news/collegeLogo/' + this.collegesList[i].school_name + 'Logo.jpg'))
 					}
 					console.log(this.collegesList)
 				},
@@ -78,7 +87,7 @@
 	.colleges {
 		position: absolute;
 		width: 339px;
-		height: 247px;
+		height: 400px;
 		left: 14px;
 		top: 565px;
 		z-index: 79;
@@ -132,16 +141,26 @@
 
 	.colleges-link {
 		display: inline-block;
+		text-decoration: none;
+		width: 110px;
 	}
 
 	.colleges-name {
 		font-family: SourceHanSansSC;
 		font-weight: 400;
 		font-size: 18px;
-		color: rgb(16, 16, 16);
+		color: rgb(0, 0, 0);
 		font-style: normal;
 		letter-spacing: 0px;
 		line-height: 27px;
 		text-decoration: none;
+	}
+
+	.colleges-div1 {
+		display: inline;
+	}
+
+	.colleges-div2 {
+		display: inline;
 	}
 </style>

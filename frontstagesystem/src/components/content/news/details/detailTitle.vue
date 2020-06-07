@@ -21,16 +21,29 @@
 				image: require('assets/img/news/collegeLogo/' + this.$route.params.school + 'Logo.jpg'),
 				name: this.$route.params.school,
 				label: [
-					'双一流', '211'
+					
 				]
 			}
 		},
+		created() {
+			this.$http.post('http://118.178.184.69:4396/school/getallschool', ).then((res) => {
+					for (let i = 0; i < res.data.length; i++) {
+						if(res.data[i].school_name == this.name){
+							this.label = res.data[i].school_tag.split(',')
+						}
+					}
+				},
+				(error) => {
+			
+				})
+		}
 	}
 </script>
 
 <style>
 	.detailTitle-img {
-		top: 0;
+		position: relative;
+		top: 10px;
 		left: 0;
 		width: 160px;
 		height: 160px;
@@ -49,7 +62,7 @@
 		display: inline-block;
 		position: relative;
 		left: 50px;
-		bottom: 85px;
+		bottom: 70px;
 	}
 
 	/* 	.detailTitle-div {
@@ -57,8 +70,6 @@
 	.detailTitle-label {
 		width: 81px;
 		/* height: 33px; */
-		left: 273px;
-		top: 95px;
 		z-index: 7;
 		background-color: rgb(165, 222, 255);
 		border-color: rgb(187, 187, 187);
@@ -75,9 +86,8 @@
 		color: #000000;
 		display: inline-block;
 		position: relative;
-		/* right: 200px; */
-		top: -45px;
-		left: -60px;
+		right: 100px;
+		top: -30px;
 		margin-right: 5px;
 	}
 </style>
