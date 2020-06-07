@@ -2,8 +2,8 @@
 	<div class="colleges">
 		<p class="colleges-title">院校资讯</p>
 		<a class="colleges-more" href="#">更多</a>
-		<div>
-			<li @click="getDetail(collegesList[0].name)" class="colleges-link">
+
+			<!-- <li @click="getDetail(collegesList[0].name)" class="colleges-link">
 				<img :src="collegesList[0].image" alt="0" class="colleges-img">
 				<p class="colleges-name">福州大学</p>
 			</li>
@@ -14,28 +14,34 @@
 			<router-link :to="collegesList[1].clickUrl" class="colleges-link">
 				<img :src="collegesList[1].image" alt="1" class="colleges-img">
 				<p class="colleges-name">福州大学</p>
+			</router-link> -->
+			<router-link v-for="(list,index) in collegesList" :to="list.clickUrl" class="colleges-link">
+				<img :src="list.image" alt="1" class="colleges-img">
+				<p class="colleges-name">{{list.school_name}}</p>
 			</router-link>
-		</div>
+
 	</div>
 </template>
 
 <script>
-	import fzuLogo from 'assets/img/news/collegeLogo/fzuLogo.jpg'
 	export default {
 		name: 'colleges',
 		data() {
 			return {
-				collegesList: [{
-						image: fzuLogo,
-						clickUrl: '/news/detail',
-						name: 'fzu'
-					},
-					{
-						image: fzuLogo,
-						clickUrl: '/news/detail',
-						name: 'fzu'
-					},
-				]
+				// collegesList: [{
+				// 		image: fzuLogo,
+				// 		clickUrl: '/news/detail',
+				// 		name: 'fzu'
+				// 	},
+				// 	{
+				// 		image: fzuLogo,
+				// 		clickUrl: '/news/detail',
+				// 		name: 'fzu'
+				// 	},
+				// ],
+				collegesList: [
+
+				],
 			}
 		},
 		methods: {
@@ -44,14 +50,28 @@
 				this.$router.push({
 					path: `/news/detail/${school}`,
 				})
-				}
-			},
-			created() {
-				for (let i = 0; i < this.collegesList.length; i++) {
-					this.collegesList[i].clickUrl = '/news/detail/' + this.collegesList[i].name
-				}
 			}
+		},
+		created() {
+			// for (let i = 0; i < this.collegesList.length; i++) {
+			// 	this.collegesList[i].clickUrl = '/news/detail/' + this.collegesList[i].name
+			// }
+		},
+		created() {
+			this.$http.post('http://118.178.184.69:4396/school/getallschool', ).then((res) => {
+					for (let i = 0; i < res.data.length; i++) {
+						this.collegesList.push(res.data[i])
+						this.$set(this.collegesList[i], 'clickUrl', '/news/detail/' + this.collegesList[i].school_name)
+						this.$set(this.collegesList[i], 'image', 
+						require('assets/img/news/collegeLogo/' + this.collegesList[i].school_name + 'Logo.jpg'))
+					}
+					console.log(this.collegesList)
+				},
+				(error) => {
+
+				})
 		}
+	}
 </script>
 
 <style>

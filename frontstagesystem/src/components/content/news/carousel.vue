@@ -119,7 +119,11 @@
 		height: 100%; */
 		position: relative;
 		/* bottom: 30px; */
-		right: 10px;
+		right: 25px;
+		width: 320px !important;
+		height: 260px !important;
+		display: block !important;
+		margin: 0 auto !important;
 	}
 
 	.carousel-items {
