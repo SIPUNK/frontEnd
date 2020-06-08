@@ -33,7 +33,7 @@
 
 		</ul>
 		<!-- <div class="to_right"></div> -->
-		<i class="el-icon-arrow-right"></i>
+		<!-- <i class="el-icon-arrow-right"></i> -->
 	</div>
 
 </template>
@@ -112,11 +112,11 @@
 			top: -21px;
 			right: -53px;
 	} */
-	.el-icon-arrow-right {
+/* 	.el-icon-arrow-right {
 		display: inline-block;
 		position: relative;
-		top: -14.5px;
-		right: -55px;
+		top: 0px;
+		right: 100px;
 		font-size: 30px;
-	}
+	} */
 </style>
