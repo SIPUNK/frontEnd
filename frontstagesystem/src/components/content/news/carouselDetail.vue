@@ -33,7 +33,6 @@
 				(error) => {
 
 				})
-			this.content.replace()
 		}
 	}
 </script>
@@ -62,12 +61,14 @@
 		font-size: 12px;
 		color: #999;
 	}
+
 	.carouselDetail-content {
 		color: #333;
-		    line-height: 28px;
-		    margin-bottom: 30px;
-		    overflow: hidden;
-		    font-size: 16px;
-		    text-align: justify;
+		line-height: 28px;
+		margin-bottom: 30px;
+		overflow: hidden;
+		font-size: 16px;
+		text-align: justify;
+		white-space: pre-wrap;
 	}
 </style>
