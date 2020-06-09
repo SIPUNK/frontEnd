@@ -29,7 +29,10 @@
 			this.$http.post('http://118.178.184.69:4396/school/getallschool', ).then((res) => {
 					for (let i = 0; i < res.data.length; i++) {
 						if(res.data[i].school_name == this.name){
-							this.label = res.data[i].school_tag.split(',')
+							if(res.data[i].school_tag!=null){
+								this.label = res.data[i].school_tag.split(',')
+							}
+							
 						}
 					}
 				},

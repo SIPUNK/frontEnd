@@ -3,7 +3,7 @@
 		<div class="detailFile-div">
 			<p class="detailFile-head">招生简章</p>
 			<p v-for="(value,index) in fileList">
-				<a :href="value.clickUrl" class="detailFile-title">{{value.title}}</a>
+				<router-link :to="value.clickUrl" class="detailFile-title">{{value.invitation_title}}</router-link>
 			</p>
 		</div>
 		<br>
@@ -14,45 +14,69 @@
 			</p>
 		</div>
 	</div>
-	
+
 </template>
 
 <script>
-
 	export default {
 		name: 'detailFile',
 		data() {
 			return {
-				fileList: [{
-						title: '福州大学2020年招生简章',
-						clickUrl: '#'
-					},
-					{
-						title: '福州大学2019年招生简章',
-						clickUrl: '#'
-					},
-					{
-						title: '福州大学2018年招生简章',
-						clickUrl: '#'
-					},
-				],
+				// fileList: [{
+				// 		title: '福州大学2020年招生简章',
+				// 		clickUrl: '#'
+				// 	},
+				// 	{
+				// 		title: '福州大学2019年招生简章',
+				// 		clickUrl: '#'
+				// 	},
+				// 	{
+				// 		title: '福州大学2018年招生简章',
+				// 		clickUrl: '#'
+				// 	},
+				// ],
 				fileList2: [{
-						title: '福州大学2020年专业目录',
+						title: 'xx大学2020年专业目录',
 						clickUrl: '#'
 					},
 					{
-						title: '福州大学2019年专业目录',
+						title: 'xx大学2019年专业目录',
 						clickUrl: '#'
 					},
 					{
-						title: '福州大学2018年专业目录',
+						title: 'xx大学2018年专业目录',
 						clickUrl: '#'
 					},
 				],
+				school_id: '',
+				school_name: this.$route.params.school,
+				fileList: [],
 			}
 		},
 		created() {
-				console.log(this.$route.params.school)
+			this.$http.post('http://118.178.184.69:4396/school/getallschool', ).then((res) => {
+					for (let i = 0; i < res.data.length; i++) {
+						if (res.data[i].school_name == this.school_name) {
+							this.school_id = res.data[i].school_id
+						}
+					}
+					let data = {
+						"school_id": parseInt(this.school_id)
+					}
+					console.log(data)
+					this.$http.post('http://118.178.184.69:4396/invitation/getinvitationbyschool', data).then((response) => {
+							for (let i = 0; i < response.data.length; i++) {
+								this.fileList.push(response.data[i])
+								this.$set(this.fileList[i], 'clickUrl', '/news/detail/' +
+									this.school_name + '/' + this.fileList[i].invitation_id)
+							}
+							console.log(response.data)
+							
+						},
+						(error) => {})
+				},
+				(error) => {})
+
 		}
 	}
 </script>
@@ -75,7 +99,7 @@
 		font-style: normal;
 		opacity: 1;
 		margin-left: 30px;
-		
+
 	}
 
 	.detailFile-title {
