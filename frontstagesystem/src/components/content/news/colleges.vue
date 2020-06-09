@@ -74,7 +74,7 @@
 						this.$set(this.collegesList[i], 'image',
 							require('assets/img/news/collegeLogo/' + this.collegesList[i].school_name + 'Logo.jpg'))
 					}
-					console.log(this.collegesList)
+					// console.log(this.collegesList)
 				},
 				(error) => {
 

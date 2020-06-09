@@ -52,7 +52,7 @@
 					this.carouselList.push(res.data[i])
 					this.$set(this.carouselList[i], 'clickUrl', '#/news/' + this.carouselList[i].carousel_id)
 				}
-				console.log(this.carouselList)
+				// console.log(this.carouselList)
 			},
 			(error) => {
 				

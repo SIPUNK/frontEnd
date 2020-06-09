@@ -116,7 +116,10 @@
 								} else if (response.data[i].type == 2) {
 									response.data[i].type = "专业型"
 								}
-								this.$http.post('http://118.178.184.69:4396/subject/getsubjectbyid?id=' + response.data[i].subject, ).then(
+								let data1 = {
+									"id": response.data[i].subject
+								}
+								this.$http.post('http://118.178.184.69:4396/subject/getsubjectbyid', data1).then(
 									(response1) => {
 										response.data[i].subject = response1.data.subject_name
 										this.tableData.push(response.data[i])
