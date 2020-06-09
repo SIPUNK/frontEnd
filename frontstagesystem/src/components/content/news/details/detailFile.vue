@@ -18,22 +18,6 @@
 </template>
 
 <script>
-	// import utils from 'assets/js/utils.js'
-	
-	// let url = window.location.search;
-	// let theRequest = new Object();
-	// if (url.indexOf("?") != -1) {
-	// 	let str = url.substr(1);
-	// 	let strs = str.split("&");
-	// 	for (let i = 0; i < strs.length; i++) {
-	// 		theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-	// 	}
-	// }
-	// console.log(theRequest.school)
-	
-	// let school = utils.getUrlKey('school')
-	// console.log(school)
-
 
 	export default {
 		name: 'detailFile',
