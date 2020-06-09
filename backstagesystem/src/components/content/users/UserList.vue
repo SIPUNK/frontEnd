@@ -63,7 +63,6 @@
 						  	<a @click="edit(item.user_id)">编辑  </a>
 							<a v-show="!item.isBan" @click="changeBan(item.isBan,item.user_id)">封禁   </a>
 							<a v-show="item.isBan" @click="changeBan(item.isBan,item.user_id)">解封   </a>
-						  	<a class="delete">删除</a>
 						  </td>
 						</tr>
 					</tbody>

@@ -22,12 +22,7 @@
 					{
 						name:"资讯管理",
 						img:"glyphicon glyphicon-th-list",
-						path:"/news/index"
-					},
-					{
-						name:"资讯首页",
-						img:"left",
-						path:"/news/index"
+						path:"/news/carousel"
 					},
 					{
 						name:"轮播图",
@@ -43,11 +38,6 @@
 						name:"用户",
 						img:"left",
 						path: '/users'
-					},
-					{
-						name:"管理员",
-						img:"left",
-						path: '/admin'
 					},
 					{
 						name:"社区管理",

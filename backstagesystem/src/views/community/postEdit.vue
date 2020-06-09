@@ -1,25 +1,32 @@
 <template>
-	<div id="editPost" class="container">
+	<div id="addUser" class="container">
 		<div class="col-sm-10 col-sm-offset-1 add_panel">
-			<h3>编辑帖子</h3>
+			<h3>帖子详情</h3>
 			<button class="btn btn-success return_button" @click="returnTo">
 				返回
 			</button>
-			<form>
+			<form class="form-horizontal" role="form">
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">帖子标题：</label>
-			    <input type="input" class="form-control" v-model="postInvitation.invitation_title" placeholder="请输入帖子标题">
+			    <label for="firstname" class="col-sm-2 control-label">帖子标题：</label>
+			    <div class="col-sm-3">
+			     <input type="input" class="form-control" v-model="postInvitation[0].invitation_title" placeholder="请输入帖子标题">
+			    </div>
 			  </div>
 			  <div class="form-group detail_form_group">
-			    <label for="exampleInputEmail1" class="my_label">版块：</label>
-			    <input type="input" class="form-control" v-model="postInvitation.plate" disabled="disabled" placeholder="未注入数据,没有版块信息">
+			    <label for="lastname" class="col-sm-2 control-label">版块：</label>
+			    <div class="col-sm-3" >
+			       <select class="form-control">
+					 <template>
+						<option>{{ postInvitation[0].plate }}</option>
+					 </template>
+			       </select>
+			    </div>
 			  </div>
-			  <div class="form-group">
-			    <label for="exampleInputEmail1" class="my_label">帖子内容：</label>
-			    <vue-editor v-model="postInvitation.content"></vue-editor>
-			  </div>
-			  <button class="btn btn-success btn-lg submit_button" @click="add">编辑</button>
+			    <label for="lastname" class="control-label" style="margin-left: -14px;">帖子内容：</label>
+				<vue-editor v-model="postInvitation[0].content" style="margin-top: 40px;"></vue-editor>
+
 			</form>
+			
 		</div>
 	</div>
 </template>
@@ -37,27 +44,33 @@
 					invitation_title:"",
 					plate:"",
 					content:""
-				}
+				},
+				plates:[]
 			}
 		},
-		mounted() {
-			document.title = "添加帖子";
-			this.postInvitation.post_user = this.$store.state.user.user_id;
+		created() {
+			document.title = "编辑帖子";
 			/*页面挂载获取保存的cookie值*/
 			let uname = getCookie('username')
 			/*如果cookie不存在，则跳转到登录页*/
 			if(uname == ""){
 			    this.$router.push('/login')
 			}     
-			
-			this.$http.get('http://118.178.184.69:4396/User/findbyid',{params:{
-			user_id:this.$route.params.id  
-			}}).then((res)=>{
-				//console.log(res)
-				this.user = res.data;
+			this.getAllPlate();
+			let data = {"invitation_id":parseInt(this.$route.params.id)}
+			this.$http.post('http://118.178.184.69:4396/invitation/getinvitationbyid',data).then((res)=>{
+				this.postInvitation = res.data;
 			})
 		},
 		methods:{
+			changePlate(event){
+				this.postInvitation.plate = event.target.value;
+			},
+			getAllPlate(){
+				this.$http.post('http://118.178.184.69:4396/plate/getPlate').then((res)=>{
+					this.plates = res.data[0];
+				})
+			},
 			returnTo (){
 				this.$router.push("/community/post");
 			},

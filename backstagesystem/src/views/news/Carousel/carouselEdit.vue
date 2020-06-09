@@ -27,7 +27,7 @@
 			  <div class="form-group detail_form_group">
 			    <label for="lastname" class="col-sm-2 control-label">说明：</label>
 			    <div class="col-sm-3">
-			      <input type="input" class="form-control" v-model="carousel.content" placeholder="请输入说明">
+			      <textarea type="input" class="form-control" v-model="carousel.content" placeholder="请输入说明"></textarea>
 			    </div>
 			  </div>
 			</form>

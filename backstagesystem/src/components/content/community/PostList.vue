@@ -5,10 +5,16 @@
 			<h4 class="find_title">帖子搜索</h4>
 			<div class="form-group find_group">
 			  <label>按帖子标题查找：</label>
-			  <input type="input" class="form-control find_input" v-model="findId" id="findInput" placeholder="请输入帖子标题">
-			  <button class="btn btn-success find_button" @click="findById">查找</button>
+			  <input type="input" class="form-control find_input" v-model="findTitle" id="findInput" placeholder="请输入帖子标题">
+			  <button class="btn btn-success find_button" @click="findByTitle">查找</button>
 			  <button class="btn btn-success find_button" @click="clear">清空所有搜索条件</button>
 			  <h4 class="nofind" v-model="idNoFind">{{ idNoFind }}</h4>
+			</div>
+			<div class="form-group find_group">
+			  <label>按版块查找帖子：</label>
+			  <input type="input" class="form-control find_input" v-model="find2" id="findInput" placeholder="请输入版块ID">
+			  <button class="btn btn-success find_button" @click="findByPlate">查找</button>
+			  <h4 class="nofind" v-model="usernameNoFind">{{ usernameNoFind }}</h4>
 			</div>
 		</div>	
 		<!-- 帖子列表组件 -->
@@ -18,9 +24,6 @@
 					<br>&nbsp;&nbsp;&nbsp;&nbsp;
 					帖子列表
 				</span>
-				<button class="btn btn-success mybutton" @click="add">
-					添加帖子
-				</button>
 				<div class="line">	
 				</div>
 			</div>
@@ -52,10 +55,10 @@
 						  <td>{{ item.create_time }}</td>
 						  <td>{{ item.update_time }}</td>
 						  <td>
-						  	<a @click="edit(item.invitation_id)">编辑  </a>
+						  	<a @click="edit(item.invitation_id)">详情  </a>
 							<a v-show="!item.invitation_status" @click="changeBan(item.invitation_status,item.invitation_id)">隐藏   </a>
 							<a v-show="item.invitation_status" @click="changeBan(item.invitation_status,item.invitation_id)">显示   </a>
-						  	<a>删除</a>
+						  	<a class="delete" @click="deleteInvitation(item.invitation_id)">删除</a>
 						  </td>
 						</tr>
 					</tbody>
@@ -84,8 +87,8 @@
 				dataCurrent:[],
 				dataTotal:[],
 				checkList:[],
-				findId:"",
-				findUsername:"",
+				findTitle:"",
+				find2:"",
 				isCheckedAll: false,
 				isFind: false,
 				usernameNoFind:"",
@@ -113,6 +116,13 @@
 			this.getAll();
 		},
 		methods:{
+			//删除帖子
+			deleteInvitation(id){
+				let data = {invitation_id:id};
+				this.$http.post('http://118.178.184.69:4396/invitation/delete',data).then(res =>{
+					this.reload();
+				})
+			},
 			//改变封禁状态
 			changeBan(status,invitation_id){
 				status==0?status=1:status=0;
@@ -122,7 +132,7 @@
 				})
 			},
 			edit(id){
-				this.$router.push('/users/edit/'+id);
+				this.$router.push('/community/post/edit/'+id);
 			},
 			//获取封禁状态
 			getStatus(status){
@@ -161,49 +171,47 @@
 					}
 				});
 			},
-			//按用户ID查找用户
-			findById(){
-				if(this.findId != "")
+			findByPlate(){
+				if(this.find2 != "")
 				{
-					this.$http.post('http://118.178.184.69:4396/User/findbyid',this.findId).then((res)=>{
+					let data = {"plate":parseInt(this.find2)};
+					this.$http.post('http://118.178.184.69:4396/invitation/getplateinvition',data).then((res)=>{
 							if(res.data != "")
 							{
-								this.dataCurrent = [];
-								this.dataCurrent[0] = res.data;
+								this.dataCurrent = res.data;
 								this.isFind = true;
 							}
 							else
 							{
-								this.idNoFind = "该ID不存在!";
+								this.usernameNoFind = "未找到符合条件的帖子!";
 							}
 					})
 				}
 			},
-			//按用户名查找用户
-			findByUsername(){
-				if(this.findUsername != "")
+			//按帖子标题查找帖子
+			findByTitle(){
+				if(this.findTitle != "")
 				{
-					this.$http.post('http://118.178.184.69:4396/User/findbyname',this.findUsername).then((res)=>{
-						if(res.data != "")
-						{
-							this.dataCurrent = [];
-							this.dataCurrent[0] = res.data;
-							this.isFind = true;
-						}
-						else
-						{
-							this.usernameNoFind = "该用户名不存在!";
-						}
+					let data = {"invitation_title":this.findTitle};
+					this.$http.post('http://118.178.184.69:4396/invitation/query',data).then((res)=>{
+							if(res.data != "")
+							{
+								this.dataCurrent = res.data;
+								this.isFind = true;
+							}
+							else
+							{
+								this.idNoFind = "未找到符合条件的帖子!";
+							}
 					})
 				}
 			},
 			//清空搜索条件
 			clear(){
-				if(this.findId != "" || this.findUsername != "")
+				if(this.findTitle != "" || this.find2 != "")
 				{
-					console.log("qk")
-					this.findId = "";
-					this.findUsername = "";
+					this.findTitle = "";
+					this.find2 = "";
 					this.idNoFind = "";
 					this.usernameNoFind = "";
 					this.isFind = false;

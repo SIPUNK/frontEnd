@@ -3,6 +3,7 @@
 		<div class="col-sm-10 col-sm-offset-1">
 			<h4 class="title">帖子管理</h4>
 			<postlist></postlist>
+			<platelist></platelist>
 		</div>
 	</div>
 </template>
@@ -10,6 +11,7 @@
 <script>
 	
 	import postlist from '../../components/content/community/PostList.vue'
+	import platelist from '../../components/content/community/PlateList.vue'
 	import {getCookie} from '../../assets/js/cookie.js'
 	
 	export default{
@@ -24,7 +26,8 @@
 		    }        
 		},
 		components:{
-			postlist
+			postlist,
+			platelist
 		}
 	}
 </script>

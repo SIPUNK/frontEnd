@@ -66,6 +66,9 @@
 					this.$http.post('http://118.178.184.69:4396/User/login',this.user).then((res)=>{
 					  if(res.data == true)
 					  {
+						 let data1 = res.data;
+						 console.log(res.data)
+						 //this.$store.commit('set_token', res.data["Authentication-Token"]);
 					     setCookie('username',this.user.username,1000*60);
 						 let data = {"username":this.user.username} 
 					     this.$http.post('http://118.178.184.69:4396/User/findbyname',data).then((res)=>{

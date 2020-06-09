@@ -14,8 +14,13 @@
 			  </div>
 			  <div class="form-group detail_form_group">
 			    <label for="lastname" class="col-sm-2 control-label">版块：</label>
-			    <div class="col-sm-3">
-			       <input type="input" class="form-control" v-model="postInvitation.plate" disabled="disabled" placeholder="未注入数据,没有版块信息">
+			    <div class="col-sm-3" >
+			       <select class="form-control" @change="changePlate($event)">
+					 <template v-for="(item,index) in plates">
+						 {{ item.name }}
+						<option :value="item.id">{{ item.name }}</option>
+					 </template>
+			       </select>
 			    </div>
 			  </div>
 			    <label for="lastname" class="control-label" style="margin-left: -14px;">帖子内容：</label>
@@ -41,10 +46,11 @@
 					invitation_title:"",
 					plate:"",
 					content:""
-				}
+				},
+				plates:[]
 			}
 		},
-		mounted() {
+		created() {
 			document.title = "添加帖子";
 			this.postInvitation.post_user = this.$store.state.user.user_id;
 			/*页面挂载获取保存的cookie值*/
@@ -53,8 +59,18 @@
 			if(uname == ""){
 			    this.$router.push('/login')
 			}     
+			this.getAllPlate();
 		},
 		methods:{
+			changePlate(event){
+				this.postInvitation.plate = event.target.value;
+			},
+			getAllPlate(){
+				this.$http.post('http://118.178.184.69:4396/plate/getPlate').then((res)=>{
+					this.plates = res.data;
+					this.postInvitation.plate = this.plates[0].id;
+				})
+			},
 			returnTo (){
 				this.$router.push("/community/post");
 			},

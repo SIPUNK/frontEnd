@@ -54,7 +54,7 @@
 						  	<a @click="edit(item.comment_id)">详情  </a>
 							<a v-show="!item.comment_status" @click="changeBan(item.comment_status,item.comment_id)">隐藏   </a>
 							<a v-show="item.comment_status" @click="changeBan(item.comment_status,item.comment_id)">显示   </a>
-						  	<a @click="deleteComment(item.comment_id)">删除</a>
+						  	<a class="delete" @click="deleteComment(item.comment_id)">删除</a>
 						  </td>
 						</tr>
 					</tbody>
