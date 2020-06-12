@@ -3,7 +3,7 @@
 		<div class="detailFile-div">
 			<p class="detailFile-head">招生简章</p>
 			<p v-for="(value,index) in fileList">
-				<router-link :to="value.clickUrl" class="detailFile-title">{{value.invitation_title}}</router-link>
+				<router-link v-if="value.invitation_type == 1" :to="value.clickUrl" class="detailFile-title">{{value.invitation_title}}</router-link>
 			</p>
 		</div>
 		<br>
@@ -63,21 +63,20 @@
 					let data = {
 						"school_id": parseInt(this.school_id)
 					}
-					console.log(data)
 					this.$http.post('http://118.178.184.69:4396/invitation/getinvitationbyschool', data).then((response) => {
 							for (let i = 0; i < response.data.length; i++) {
-								this.fileList.push(response.data[i])
-								this.$set(this.fileList[i], 'clickUrl', '/news/detail/' +
-									this.school_name + '/' + this.fileList[i].invitation_id)
+									this.fileList.push(response.data[i])
+									this.$set(this.fileList[i], 'clickUrl', '/news/detail/' +
+										this.school_name + '/' + this.fileList[i].invitation_id)
 							}
-							console.log(response.data)
-							
+							console.log(this.fileList)
+
 						},
 						(error) => {})
 				},
 				(error) => {})
 
-		}
+		},
 	}
 </script>
 

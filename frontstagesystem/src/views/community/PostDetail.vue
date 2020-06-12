@@ -31,7 +31,7 @@
 								<span>{{item.date}}</span>
 							</div>
 							<div class="comment_mid">
-								<img style="width: 24px; height: 24px;cursor: pointer;" src="~assets/zan.png"></img>
+								<img style="width: 24px; height: 24px;cursor: pointer;" :src="require(`assets/zan.png`)"></img>
 								<span style="margin-left: 10px;">赞({{item.number}})</span>
 							</div>
 						</div>
@@ -133,6 +133,35 @@
 
 				}]
 			}
+		},
+		methods:{
+			addComment(map){
+					this.$http.post('http://118.178.184.69:4396/comment/addcomment',{postComment:map}).then(result => {
+					console.log(result.data)
+				})
+			},
+			addLike(map){
+					this.$http.post('http://118.178.184.69:4396/comment/addlike',{map:map}).then(result => {
+					console.log(result.data)
+				})
+			},
+			changeStatus(){
+				let body = {
+					 "comment_id": 0,
+  					 "date": {}
+				}
+				this.$http.post('http://118.178.184.69:4396/comment/changestatus',{changeComment:body}).then(result => {
+				console.log(result.data)
+				})
+			},
+			// deleteComment(map){
+			// 	let map = {
+			// 	}
+			// 	this.$http.post('http://118.178.184.69:4396/comment/deletecomment',{map:map}).then(result => {
+			// 		console.log(result.data)
+			// 	})
+			// },
+
 		}
 	}
 </script>

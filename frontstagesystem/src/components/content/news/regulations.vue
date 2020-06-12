@@ -12,7 +12,7 @@
 		<p class="title">2020考研如何解读各校专业学位</p>
 		<ul class="regulations-ul">
 			<li v-for="(value,index) in contentList" class="regulations-li">
-				<router-link v-if="index>5&&index<=11&&value.href!=undefined" :to="value.href" class="regulations-link">
+				<router-link v-if="index>5&&index<=9&&value.href!=undefined" :to="value.href" class="regulations-link">
 					{{value.invitation_title}}
 				</router-link>
 			</li>
@@ -68,7 +68,7 @@
 			carousel
 		},
 		created() {
-			this.$http.post('http://118.178.184.69:4396/invitation/getinvitation', ).then((res) => {
+			this.$http.post('http://118.178.184.69:4396/invitation/getallcatalog', ).then((res) => {
 					for (let i = 0; i < res.data.length; i++) {
 						if (res.data[i].invitation_type == 1) {
 							this.contentList.push(res.data[i])

@@ -117,7 +117,7 @@
 									response.data[i].type = "专业型"
 								}
 								let data1 = {
-									"id": response.data[i].subject
+									"subject_id": response.data[i].subject
 								}
 								this.$http.post('http://118.178.184.69:4396/subject/getsubjectbyid', data1).then(
 									(response1) => {

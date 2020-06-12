@@ -30,6 +30,7 @@
 
 			return {
 				PostNum: '1',
+				editType:'new', // edit 编辑 new 新增
 				title: '',
 				Modular: '',
 				ModularList: [{
@@ -69,8 +70,21 @@
 			}
 		},
 		methods:{
+			// 发布和更改用一个接口 改变帖子状态
 			fabu(){
-				console.log(this.Postcontent)
+					if(this.editType === 'edit'){
+							this.$http.post('http://118.178.184.69:4396/invitation/changestatus',{changeInvitation:"test"}
+						).then(result => {
+							console.log(result.data)
+						})
+					}
+					else{
+						this.$http.post('http://118.178.184.69:4396/invitation/post',{changeInvitation:"test"}
+						).then(result => {
+							console.log(result.data)
+						})
+					}
+				
 			}
 		}
 

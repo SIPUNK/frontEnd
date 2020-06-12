@@ -5,7 +5,7 @@
 			<div class="articleDetail-main">
 				<h1 class="articleDetail-title">{{title}}</h1>
 				<p class="articleDetail-createtime">发布时间：{{create_time}}
-				   &emsp;&emsp;&emsp;&emsp;&emsp;发布单位：{{school_name}}研究生院</p>
+				   发布单位：{{school_name}}研究生院</p>
 				<p v-html="content" class="articleDetail-content"></p>
 			</div>
 		</div>

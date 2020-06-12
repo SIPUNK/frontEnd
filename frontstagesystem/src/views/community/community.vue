@@ -4,7 +4,7 @@
 			<div class="search_box">
 				<el-input placeholder="搜索" prefix-icon="el-icon-search" v-model="search">
 				</el-input>
-				<img src="~assets/bianji.png" @click="gooPosting" style="cursor: pointer;width: 30px;height: 30px;margin-left: 20px;" />
+				<img :src="require(`assets/bianji.png`)" @click="gooPosting" style="cursor: pointer;width: 30px;height: 30px;margin-left: 20px;" />
 			</div>
 			<div class="Ranking_box">
 				<div class="Ranking_title">
@@ -12,13 +12,11 @@
 					<span @click="go">更多</span>
 				</div>
 				<div class="Ranking_content">
-					<div v-for="item in RankingList" >
-						<div v-if="item.weight<4">
-							<img src="~assets/num1.png" style="width: 20px;height: 20px;" v-if="item.weight==1" /> 
-							<img src="~assets/num2.png" style="width: 20px;height: 20px;" v-if="item.weight==2" />
-							<img src="~assets/num3.png" style="width: 20px;height: 20px;" v-if="item.weight==3" />
+					<div v-for="(item,key) in hotLists" :key="item.invitation_id" >
+						<div v-if="key<3">
+							<img :src="require(`assets/num${key+1}.png`)" style="width: 20px;height: 20px;"/>
 						</div>
-						<span @click="goPostDetail" :class="item.weight<4?'topThree':'bottomList'">{{item.value}}</span>
+						<span @click="goPostDetail(item.invitation_id)" :class="key<3?'topThree':'bottomList'">{{item.invitation_title||"暂无"}}</span>
 					</div>
 				</div>
 
@@ -29,13 +27,11 @@
 					<span @click="go">更多</span>
 				</div>
 				<div class="Ranking_content">
-					<div v-for="item in RankingList">
-						<div v-if="item.weight<4">
-							<img src="~assets/num1.png" style="width: 20px;height: 20px;" v-if="item.weight==1" /> 
-							<img src="~assets/num2.png" style="width: 20px;height: 20px;" v-if="item.weight==2" />
-							<img src="~assets/num3.png" style="width: 20px;height: 20px;" v-if="item.weight==3" />
+					<div v-for="(item,key) in leisureLists" :key="item.invitation_id">
+						<div v-if="key<3">
+							<img :src="require(`assets/num${key+1}.png`)" style="width: 20px;height: 20px;"/>
 						</div>
-						<span @click="goPostDetail" :class="item.weight<4?'topThree':'bottomList'">{{item.value}}</span>
+						<span @click="goPostDetail(item.invitation_id)" :class="key<3?'topThree':'bottomList'">{{item.invitation_title||"暂无"}}</span>
 					</div>
 				</div>
 			</div>
@@ -46,8 +42,8 @@
 				<span style="font-size: 22px;font-weight: bold;">最新精华帖子</span>
 				<span @click="go">更多</span>
 			</div>
-			<div class="mid_content" v-for="item in EssenceList">
-				<span @click="goPostDetail" style="cursor: pointer;" >{{item.value}}</span>
+			<div class="mid_content" v-for="item in essenceLists" :key="item.invitation_id">
+				<span @click="goPostDetail(item.invitation_id)" style="cursor: pointer;" >{{item.invitation_title}}</span>
 			</div>
 		</div>
 		<div class="right_box">
@@ -57,7 +53,7 @@
 					<span @click="go">更多</span>
 				</div>
 				<div class="HotSectors_content">
-					<div v-for="item in HotSectorsList">
+					<div v-for="(item, index) in HotSectorsList" :key="index">
 						<el-image style="width: 100px; height: 100px" :src="item.url"></el-image>
 						<span style="font-size: 14px;font-weight: bold;">{{item.name}}</span>
 						<span style="color: #101010;">帖数：{{item.PostNum}}</span>
@@ -71,13 +67,11 @@
 					<span @click="go">更多</span>
 				</div>
 				<div class="Ranking_content">
-					<div v-for="item in RankingList">
-						<div v-if="item.weight<4">
-							<img src="~assets/num1.png" style="width: 20px;height: 20px;" v-if="item.weight==1" /> 
-							<img src="~assets/num2.png" style="width: 20px;height: 20px;" v-if="item.weight==2" />
-							<img src="~assets/num3.png" style="width: 20px;height: 20px;" v-if="item.weight==3" />
+					<div v-for="(item,key) in latestLists" :key="item.invitation_id">
+						<div v-if="key<3">
+							<img :src="require(`assets/num${key+1}.png`)" style="width: 20px;height: 20px;"/>
 						</div>
-						<span @click="goPostDetail" :class="item.weight<4?'topThree':'bottomList'">{{item.value}}</span>
+						<span @click="goPostDetail(item.invitation_id)" :class="key<3?'topThree':'bottomList'">{{item.invitation_title}}</span>
 					</div>
 				</div>
 			</div>
@@ -87,44 +81,18 @@
 </template>
 
 <script>
+	import request from '@/api/request'
+
 	export default {
 		data() {
 			return {
 				search: '',
-				RankingList: [{
-					weight: '1',
-					value: '我的考研之路征文，写下你的故事'
-				}, {
-					weight: '2',
-					value: '【参考】19考研各大院校复试分数线汇总'
-				}, {
-					weight: '3',
-					value: '晒出你的复习计划，赢取英语全套参考书'
-				}, {}, {
-					weight: '4',
-					value: '帮找！帮找专业课'
-				}, {
-					weight: '5',
-					value: '诚招男友，希望你单身挺久了'
-				}, {
-					weight: '6',
-					value: '考研找研友'
-				}],
-				EssenceList: [{
-					value: '2019年福州大学化学学院复试经验分享'
-				}, {
-					value: '2019年福州大学材料学院复试经验分享'
-				}, {
-					value: '2019年福州大学同济学院复试经验分享'
-				}, {
-					value: '2019年福州大学水电学院复试经验分享'
-				}, {
-					value: '2019年福州大学光电学院复试经验分享'
-				}, {
-					value: '2019年福州大学软件学院复试经验分享'
-				}, {
-					value: '2019年福州大学自动化学院复试经验分享'
-				}],
+				RankingList: [],
+				allinvitations:[],
+				hotLists: [],
+				leisureLists: [],
+				essenceLists: [],
+				latestLists: [],
 
 				HotSectorsList: [{
 					name:'政治',
@@ -139,15 +107,39 @@
 
 			}
 		},
+		created() {
+			this.gethot()
+			this.getplateinvition(2, 'leisure')
+			this.getplateinvition(1, 'essence')
+			this.getplateinvition(3, 'latest')
+		},
 		methods:{
+			gethot() {
+				this.$http.post('http://118.178.184.69:4396/invitation/gethot').then(result => {
+					this.hotLists = result.data
+				})
+			},
+			// 获取帖子
+			getinvitation(){
+					this.$http.post('http://118.178.184.69:4396/invitation/getinvitation').then(result => {
+					this.allinvitations = result.data
+				})
+			},
+			getplateinvition(map, field) { 
+				this.$http.post('http://118.178.184.69:4396/invitation/getplateinvition',{
+					plate:map
+				}).then(result => {
+					this[`${field}Lists`] = result.data
+				})
+			},
 			gooPosting(){
 				this.$router.push({
 					path:'/community/Posting'
 				})
 			},
-			goPostDetail(){
+			goPostDetail(invitationId){
 				this.$router.push({
-					path:'/community/PostDetail'
+					path:`/community/PostDetail`,query:{invitationId:invitationId}
 				})
 			},
 			go(){
@@ -227,7 +219,7 @@
 		margin-left: 10px;
 	}
 	.bottomList{
-		
+
 		margin-left: 30px;
 	}
 
